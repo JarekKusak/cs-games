@@ -1,0 +1,16 @@
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\obj\Debug\Patnactka.csproj.AssemblyReference.cache
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\obj\Debug\Patnactka.csproj.SuggestedBindingRedirects.cache
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\obj\Debug\MainWindow.g.cs
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\obj\Debug\App.g.cs
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\obj\Debug\Patnactka_MarkupCompile.cache
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\obj\Debug\Patnactka_MarkupCompile.lref
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\bin\Debug\Patnactka.exe.config
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\bin\Debug\Patnactka.exe
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\bin\Debug\Patnactka.pdb
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\obj\Debug\MainWindow.baml
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\obj\Debug\Patnactka.g.resources
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\obj\Debug\Patnactka.Properties.Resources.resources
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\obj\Debug\Patnactka.csproj.GenerateResource.cache
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\obj\Debug\Patnactka.csproj.CoreCompileInputs.cache
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\obj\Debug\Patnactka.exe
+D:\Programování\JardaC#\Jarda projects\Patnactka\Patnactka\obj\Debug\Patnactka.pdb
