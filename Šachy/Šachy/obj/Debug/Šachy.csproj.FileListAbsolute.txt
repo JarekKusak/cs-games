@@ -1,0 +1,35 @@
+G:\Jarda projects\Šachy\Šachy\bin\Debug\Šachy.exe.config
+G:\Jarda projects\Šachy\Šachy\bin\Debug\Šachy.exe
+G:\Jarda projects\Šachy\Šachy\bin\Debug\Šachy.pdb
+G:\Jarda projects\Šachy\Šachy\obj\Debug\Šachy.csprojAssemblyReference.cache
+G:\Jarda projects\Šachy\Šachy\obj\Debug\MainWindow.g.cs
+G:\Jarda projects\Šachy\Šachy\obj\Debug\App.g.cs
+G:\Jarda projects\Šachy\Šachy\obj\Debug\Šachy_MarkupCompile.cache
+G:\Jarda projects\Šachy\Šachy\obj\Debug\Šachy_MarkupCompile.lref
+G:\Jarda projects\Šachy\Šachy\obj\Debug\MainWindow.baml
+G:\Jarda projects\Šachy\Šachy\obj\Debug\Šachy.g.resources
+G:\Jarda projects\Šachy\Šachy\obj\Debug\Šachy.Properties.Resources.resources
+G:\Jarda projects\Šachy\Šachy\obj\Debug\Šachy.csproj.GenerateResource.cache
+G:\Jarda projects\Šachy\Šachy\obj\Debug\Šachy.csproj.CoreCompileInputs.cache
+G:\Jarda projects\Šachy\Šachy\obj\Debug\Šachy.exe
+G:\Jarda projects\Šachy\Šachy\obj\Debug\Šachy.pdb
+G:\Jarda projects\Šachy\Šachy\obj\Debug\Nastaveni.g.cs
+G:\Jarda projects\Šachy\Šachy\obj\Debug\Nastaveni.baml
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\bin\Debug\Šachy.exe.config
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\bin\Debug\Šachy.exe
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\bin\Debug\Šachy.pdb
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\Šachy.csproj.AssemblyReference.cache
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\Šachy.csproj.SuggestedBindingRedirects.cache
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\MainWindow.g.cs
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\Nastaveni.g.cs
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\App.g.cs
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\Šachy_MarkupCompile.cache
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\Šachy_MarkupCompile.lref
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\MainWindow.baml
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\Nastaveni.baml
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\Šachy.g.resources
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\Šachy.Properties.Resources.resources
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\Šachy.csproj.GenerateResource.cache
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\Šachy.csproj.CoreCompileInputs.cache
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\Šachy.exe
+D:\Programování\JardaC#\Jarda projects G\Šachy\Šachy\obj\Debug\Šachy.pdb

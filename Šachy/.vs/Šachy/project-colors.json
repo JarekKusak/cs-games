@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "6e6a5ee8-a91b-4660-a241-6967dc05b9cc": {
+      "ProjectGuid": "6e6a5ee8-a91b-4660-a241-6967dc05b9cc",
+      "DisplayName": "Šachy",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
