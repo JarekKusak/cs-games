@@ -30,7 +30,8 @@ namespace Hadisko
         {
             while (pokracovat)
             {
-                Console.Clear();                               
+                Console.Clear();
+                Console.CursorVisible = false;
                 // založení nových objektů                
                 jablko = new Jablko(tabulka, 'O');
                 had = new Had(tabulka, jablko, 'X', 'x');

@@ -10,6 +10,7 @@ namespace Hadisko
     {
         static void Main(string[] args)
         {
+            
             // nastavení objektů 
             Tabulka tabulka = new Tabulka(23, ' ');
             Console.WriteLine("Vítejte ve hře HADISKO!\n");
