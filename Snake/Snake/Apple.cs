@@ -22,11 +22,20 @@ namespace Snake
             random = new Random();
         }
 
+        /// <summary>
+        /// Random generator of apple coordinates
+        /// </summary>
         public void WriteDownAppleCoordinates() // metoda vygeneruje náhodné souřadnice jablka v tabulce 
         {
             x = random.Next(1, table.Length - 1);
             y = random.Next(1, table.Length - 1);
         }
+        /// <summary>
+        /// If snakes head hit the apple, points are added
+        /// </summary>
+        /// <param name="m"> x coordinate of snakes head </param>
+        /// <param name="n"> y coordinate of snakes head </param>
+        /// <returns> did/did not </returns>
         public bool CheckStateOfApple(int m, int n) // kontroluje, zda nedošlo ke kolizi souřadnic hlavy hada a jablka 
         {
             if (x == n && y == m)
@@ -37,6 +46,9 @@ namespace Snake
             return false;
         }
 
+        /// <summary>
+        /// Counts points and is outputing it on the screen
+        /// </summary>
         public void AddPoints() // sčítá skóre
         {
             points = points + 10;
@@ -45,8 +57,15 @@ namespace Snake
             Console.WriteLine("Skóre: {0}", points);
             Console.ResetColor();
         }
-
-        public void CreateApple(int[] cx, int[] cy, int bodySegments, int m, int n) // vypíše jablko na místo určené souřadnicemi x,y
+        /// <summary>
+        /// Creates an apple 
+        /// </summary>
+        /// <param name="cx"> array of x coordinates of snake body parts </param>
+        /// <param name="cy"> array of y coordinates of snake body parts </param>
+        /// <param name="bodyParts"> number of body parts of snake </param>
+        /// <param name="m"> x coordinate of snakes head </param>
+        /// <param name="n"> y coordinate of snakes head </param>
+        public void CreateApple(int[] cx, int[] cy, int bodyParts, int m, int n) // vypíše jablko na místo určené souřadnicemi x,y
         {
             WriteDownAppleCoordinates();
             if (x == n && y == m) // ošetřená výjímka při vytvoření jablka na místě hlavy hada 
@@ -57,7 +76,7 @@ namespace Snake
 
             while (semaf)
             {
-                for (int i = 0; i < bodySegments; i++)
+                for (int i = 0; i < bodyParts; i++)
                 {
                     if (cx[i] == x && cy[i] == y)
                     {
@@ -65,7 +84,7 @@ namespace Snake
                     }
                 }
                 int counter = 0;
-                for (int i = 0; i < bodySegments; i++)
+                for (int i = 0; i < bodyParts; i++)
                 {
                     if (cx[i] == x && cy[i] == y)
                     {
@@ -73,7 +92,7 @@ namespace Snake
                     }
                     else counter++;
                 }
-                if (counter == bodySegments)
+                if (counter == bodyParts)
                     semaf = false;
             }
             Console.ForegroundColor = ConsoleColor.Red;
