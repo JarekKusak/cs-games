@@ -8,14 +8,14 @@ namespace Snake
 {
     internal class Table
     {
-        public int length; // délka strany čtvercové tabulky 
-        public char[,] matrix;
-        public char character;
-
+        public int Length { get; set; } // délka strany čtvercové tabulky 
+        public char Character { get; set; }
+        private char[,] matrix;
+        
         public Table(int length, char character)
         {
-            this.character = character;
-            this.length = length;
+            this.Character = character;
+            Length = length;
             matrix = new char[length, length];
 
             for (int i = 0; i < length; i++)
@@ -39,13 +39,17 @@ namespace Snake
             matrix[0, length - 1] = '+';
             matrix[length - 1, length - 1] = '+';
         }
-        public void TableOutput() // vypíše tabulku 
+
+        /// <summary>
+        /// Outputs table
+        /// </summary>
+        public void TableOutput()
         {
-            for (int j = 0; j < length; j++)
+            for (int j = 0; j < Length; j++)
             {
-                for (int i = 0; i < length; i++)
+                for (int i = 0; i < Length; i++)
                 {
-                    if (i == length - 1)
+                    if (i == Length - 1)
                     {
                         Console.Write("{0}\n", matrix[i, j]);
                         break;
