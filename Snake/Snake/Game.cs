@@ -15,53 +15,158 @@ namespace Snake
         private bool gameStillGoing;
         private bool playMore;
         private char move;
-        private int doba;
+        private int delay;
 
         public Game(Table tabulka, int doba)
         {
             c = new ConsoleKeyInfo();
             playMore = true;
             this.table = tabulka;
-            this.doba = doba;
+            this.delay = doba;
         }
 
+        /// <summary>
+        /// Main method for initializing objects and launching game
+        /// </summary>
+        /// <returns> Returns true if player wants to play more </returns>
         public bool Play() // metoda spustí hru 
         {
             Console.Clear();
+            table.TableOutput();
             Console.CursorVisible = false;
             // založení nových objektů                
             apple = new Apple(table, 'O');
             snake = new Snake(table, apple, 'X', 'x');
             // začátek hry 
-            table.TableOutput();
             gameStillGoing = true;
-             
-            Console.SetCursorPosition(1, table.Length);
+            snake.SnakeOutput(); // vypíše hlavu hada na původní místo
+            
+            //apple.CreateFirstApple(table.CenterOfTable, table.CenterOfTable); // vytvoří první jablko  
+            Console.SetCursorPosition(0, table.Length);
             move = Console.ReadKey().KeyChar; // požadavek na zahájení tahu 
+            
+            // main loop
             while (gameStillGoing)
             {
-                //Tah();
+                Move();
             }
+            Console.CursorVisible = true;
             playMore = Question();
             Console.Clear();
             return playMore;
         }
-        public bool Question() // metoda se zeptá hráče na založení nové hry
+
+        /// <summary>
+        /// Method that makes all the moves ;)
+        /// </summary>
+        public void Move()
         {
-            Console.SetCursorPosition(1, table.Length);
+            while (gameStillGoing)
+            {
+                Console.SetCursorPosition(0, table.Length);
+                switch (Char.ToLower(move))
+                {
+                    case 'w': // upwards direction                                               
+                        do
+                        {
+                            while (Console.KeyAvailable == false) // records user input undisturbed
+                            {
+                                snake.GoUp();
+                                if (End() == false) // control for end of the game
+                                    break; // break for ending next move (end of cycle)
+                                Thread.Sleep(delay);
+
+                            }
+                            if (End() == true)
+                                c = Console.ReadKey(true);
+                            else break;                             
+                        }
+                        while (c.Key != ConsoleKey.A && c.Key != ConsoleKey.D);
+                        move = c.KeyChar; // saves last entered input of player
+                        break;
+                    case 's': // downwards direction
+                        do
+                        {
+                            while (Console.KeyAvailable == false) // records user input undisturbed
+                            {
+                                snake.GoDown();
+                                if (End() == false)
+                                    break;
+                                Thread.Sleep(delay);
+
+                            }
+                            if (End() == true)
+                                c = Console.ReadKey(true);
+                            else break;
+                        }
+                        while (c.Key != ConsoleKey.A && c.Key != ConsoleKey.D);
+                        move = c.KeyChar;
+                        break;
+                    case 'a': // left direction
+                        do
+                        {
+                            while (Console.KeyAvailable == false) // records user input undisturbed
+                            {
+                                snake.GoLeft();
+                                if (End() == false)
+                                    break;
+                                Thread.Sleep(delay);
+
+                            }
+                            if (End() == true)
+                                c = Console.ReadKey(true);
+                            else break;
+                        }
+                        while (c.Key != ConsoleKey.W && c.Key != ConsoleKey.S);
+                        move = c.KeyChar;
+                        break;
+                    case 'd': // right direction
+                        do
+                        {
+                            while (Console.KeyAvailable == false) // records user input undisturbed
+                            {
+                                snake.GoRight();
+                                if (End() == false)
+                                    break;
+                                Thread.Sleep(delay);
+                            }
+                            if (End() == true)
+                                c = Console.ReadKey(true);
+                            else break;
+                        }
+                        while (c.Key != ConsoleKey.W && c.Key != ConsoleKey.S);
+                        move = c.KeyChar;
+                        break;
+                    default: // if player enters wrong key for the first time
+                        Console.WriteLine("Neplatná volba, zadejte prosím [W/S/A/D]");
+                        move = Console.ReadKey().KeyChar;
+                        Console.SetCursorPosition(0, table.Length);
+                        Console.Write(new string(' ', Console.WindowWidth)); // deletes message
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Asks player question if to continue or not
+        /// </summary>
+        /// <returns> Returns false if player doesn </returns>
+        public bool Question()
+        {
+            Console.SetCursorPosition(0, table.Length);
             Console.WriteLine("Přejete si založit novou hru? [ano/ne]");
             bool validOption = false;
-            bool pokracovat = true;
+            bool goOn = true;
             while (!validOption)
             {
                 switch (Console.ReadLine().ToString().ToLower())
                 {
                     case "ano":
-                        pokracovat = true;
+                        goOn = true;
                         validOption = true;
                         break;
                     case "ne":
-                        pokracovat = false;
+                        goOn = false;
                         validOption = true;
                         break;
                     default:
@@ -69,11 +174,16 @@ namespace Snake
                         break;
                 }
             }
-            return pokracovat;
+            return goOn;
         }
-        public bool End() // metoda na ověřování eventuální kolize hada a těla => konce hry 
+
+        /// <summary>
+        /// Checking collision of head
+        /// </summary>
+        /// <returns> False if collision happened </returns>
+        public bool End() 
         {
-            //gameStillGoing = snake.CheckCollision(); ;
+            gameStillGoing = snake.CheckCollision(); ;
             return gameStillGoing;
         }
     }

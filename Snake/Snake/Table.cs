@@ -10,14 +10,16 @@ namespace Snake
     {
         public int Length { get; set; } // délka strany čtvercové tabulky 
         public char Character { get; set; }
+        public int CenterOfTable => centerOfTable;
         private char[,] matrix;
-        
+        private int centerOfTable;
+
         public Table(int length, char character)
         {
             this.Character = character;
             Length = length;
             matrix = new char[length, length];
-
+            centerOfTable = (length + 1) / 2 - 1;
             for (int i = 0; i < length; i++)
             {
                 for (int j = 0; j < length; j++)
@@ -45,6 +47,7 @@ namespace Snake
         /// </summary>
         public void TableOutput()
         {
+            Console.SetCursorPosition(0, 0);
             for (int j = 0; j < Length; j++)
             {
                 for (int i = 0; i < Length; i++)

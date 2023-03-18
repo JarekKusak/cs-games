@@ -1,0 +1,15 @@
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\obj\Debug\net6.0\Snake.csproj.AssemblyReference.cache
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\obj\Debug\net6.0\Snake.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\obj\Debug\net6.0\Snake.AssemblyInfoInputs.cache
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\obj\Debug\net6.0\Snake.AssemblyInfo.cs
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\obj\Debug\net6.0\Snake.csproj.CoreCompileInputs.cache
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\bin\Debug\net6.0\Snake.exe
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\bin\Debug\net6.0\Snake.deps.json
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\bin\Debug\net6.0\Snake.runtimeconfig.json
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\bin\Debug\net6.0\Snake.dll
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\bin\Debug\net6.0\Snake.pdb
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\obj\Debug\net6.0\Snake.dll
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\obj\Debug\net6.0\refint\Snake.dll
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\obj\Debug\net6.0\Snake.pdb
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\obj\Debug\net6.0\Snake.genruntimeconfig.cache
+C:\Users\jarek\OneDrive\Dokumenty\Programování\MojeProjekty\Games\Snake\Snake\obj\Debug\net6.0\ref\Snake.dll
