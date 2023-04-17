@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Threading;
+using System.Drawing;
+using System.Windows.Media;
 
 namespace Pexeso
 {
@@ -18,6 +21,9 @@ namespace Pexeso
         public int Found { get; set; }
         public bool Win { get; set; }
         public string WinText { get; set; }
+        private Button firstCard;
+        private Button secondCard;
+        private bool firstMove = true;
         public Game(Button[,] buttons, int pairs) 
         {
             this.buttons = buttons;
@@ -27,6 +33,41 @@ namespace Pexeso
             Win = false;
             WinText = "";
         }
+
+        public void Play(object sender)
+        {
+            if (firstMove)
+            {
+                firstMove = false;
+                firstCard = (Button)sender;
+                firstCard.IsEnabled = false;
+                firstCard.Content = firstCard.Name;
+            }
+            else
+            {
+                Tries++;
+                OnPropertyChanged(nameof(Tries));
+                secondCard = (Button)sender;
+                if (firstCard.Name == secondCard.Name)
+                {
+                    secondCard.IsEnabled = false;
+                    firstCard.Foreground = new SolidColorBrush(Colors.Cyan);
+                    secondCard.Foreground = new SolidColorBrush(Colors.Cyan);
+                    Found++;
+                    OnPropertyChanged(nameof(Found));
+                }
+                else
+                {
+                    secondCard.Content = secondCard.Name;
+                    firstCard.IsEnabled = true;
+                    firstCard.Content = "";
+                }
+                //secondCard.Content = "";
+                firstMove = true;
+            }
+            
+        }
+
         /// <summary>
         /// Aktualizace TextBlocků
         /// </summary>

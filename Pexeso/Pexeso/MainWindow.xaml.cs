@@ -26,6 +26,7 @@ namespace Pexeso
         private int pairs;
         private Button[,] btns;
         private Random rd;
+        private Game game;
         public MainWindow(int pairs)
         {
             InitializeComponent();
@@ -61,13 +62,18 @@ namespace Pexeso
         /// </summary>
         private void NewGame(object sender, RoutedEventArgs e)
         {
-            Game game = new Game(btns, pairs);
+            if (sender == restartBtn)
+            {
+                ResetButtons();
+                SetRandomPairs();
+            }
+            game = new Game(btns, pairs);
             DataContext = game;
         }
 
         private void ButtonClicked(object sender, RoutedEventArgs e)
         {
-
+            game.Play(sender);
         }
 
         /// <summary>
@@ -84,15 +90,28 @@ namespace Pexeso
                     {
                         int x = rd.Next(n);
                         int y = rd.Next(m);
-                        if (btns[x, y].Name == $"button{pairs}")
+                        if (btns[x, y].Name == $"button0")
                         {
-                            btns[x, y].Name = $"button{i}";
+                            btns[x, y].Name = $"button{i+1}";
                             btns[x, y].Content = $"button{i}";
                             foundEmptyButton = true;
                         }
                     }
                 }
-            }    
+            }
+        }
+
+        private void ResetButtons()
+        {
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    btns[i, j].Name = "button0";
+                    btns[i, j].Content = "";
+                    btns[i, j].IsEnabled = true;
+                }
+            }
         }
 
         private void LoadBoard(object sender, RoutedEventArgs e)
@@ -128,7 +147,7 @@ namespace Pexeso
                     border.VerticalAlignment = VerticalAlignment.Stretch;
 
                     Button btn = new Button();
-                    btn.Name = $"button{pairs}";
+                    btn.Name = $"button0";
                     btn.Height = 30;
                     btn.Width = 30;
                     btn.FontSize = 5;

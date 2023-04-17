@@ -41,7 +41,7 @@
                     </StackPanel>
                     <TextBlock Grid.Row="2" Text="{Binding WinText}" TextAlignment="Center" Margin="10,0,0,0" FontSize="8"/>
                 </Grid>
-                <TextBlock Grid.Row="2" Grid.Column="1" Text="Autor: Jaroslav Kusák" HorizontalAlignment="Right" TextAlignment="Center" FontSize="3"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="Autor: Jaroslav Kusák" HorizontalAlignment="Right" TextAlignment="Center" FontSize="5"/>
             </Grid>
         </Viewbox>
     </Grid>
