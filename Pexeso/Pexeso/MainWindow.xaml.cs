@@ -25,14 +25,29 @@ namespace Pexeso
         private int m;
         private int pairs;
         private Button[,] btns;
-        public MainWindow()
+        public MainWindow(int pairs)
         {
             InitializeComponent();
-                
+            
+            // napsané trochu na hovado :D    
+            if (pairs == 10)
+            {
+                n = 4;
+                m = 5;
+            }
+            else if (pairs == 20)
+            {
+                n = 5;
+                m = 8;
+            }
+            else if (pairs == 30)
+            {
+                n = 6;
+                m = 10;
+            }
+            
             btns = new Button[n, m];
-            n = 4;
-            m = 5;
-            pairs = (n * m)/2; // 10 pairs
+
             Loaded += LoadBoard;
             Loaded += NewGame;
             restartBtn.Click += NewGame;

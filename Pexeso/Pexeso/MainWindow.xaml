@@ -30,7 +30,8 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" HorizontalAlignment="Right" Orientation="Horizontal">
                         <TextBlock Text="Odkrytých dvojic: " TextAlignment="Center" FontSize="8"/>
-                        <TextBlock Text="0/" TextAlignment="Center" Margin="10,0,0,0" FontSize="8"/>
+                        <TextBlock Text="{Binding Found}" TextAlignment="Center" Margin="10,0,0,0" FontSize="8"/>
+                        <TextBlock Text="/" TextAlignment="Center" FontSize="8"/>
                         <TextBlock Text="{Binding Pairs}" TextAlignment="Center" FontSize="8"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">

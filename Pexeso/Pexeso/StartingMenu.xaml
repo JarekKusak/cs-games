@@ -1,0 +1,27 @@
+﻿<Window x:Class="Pexeso.StartingMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pexeso"
+        mc:Ignorable="d"
+        Title="Pexeso" Height="450" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Pexeso!" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="Počet párů: " FontSize="30"/>
+            <ComboBox x:Name="comboBox" Width="150">
+                <ListBoxItem Content="10"/>
+                <ListBoxItem Content="20"/>
+                <ListBoxItem Content="30"/>
+            </ComboBox>
+        </StackPanel>
+        <Button Grid.Row="2" Content="Hrát!" FontSize="30" x:Name="startButton" Click="startButton_Click"/>
+        
+    </Grid>
+</Window>

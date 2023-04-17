@@ -12,16 +12,16 @@ namespace Pexeso
     {
         Button[,] buttons;
         //INotifyPropertyChanged event
-        //INotifyPropertyChanged event
         public event PropertyChangedEventHandler PropertyChanged;
         public int Tries { get; set; }
         public int Pairs { get; set; }
+        public int Found { get; set; }
         public Game(Button[,] buttons, int pairs) 
         {
             this.buttons = buttons;
             Pairs = pairs;
             Tries = 0;
-            //OnPropertyChanged(nameof(Pairs));
+            Found = 0;
         }
         /// <summary>
         /// Aktualizace TextBlocků

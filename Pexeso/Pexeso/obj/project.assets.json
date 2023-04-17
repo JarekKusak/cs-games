@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jarek\\OneDrive\\Dokumenty\\Programování\\MojeProjekty\\Pexeso\\Pexeso\\Pexeso.csproj",
+      "projectUniqueName": "C:\\Users\\jarek\\OneDrive\\Dokumenty\\Programování\\MojeProjekty\\Games\\Pexeso\\Pexeso\\Pexeso.csproj",
       "projectName": "Pexeso",
-      "projectPath": "C:\\Users\\jarek\\OneDrive\\Dokumenty\\Programování\\MojeProjekty\\Pexeso\\Pexeso\\Pexeso.csproj",
+      "projectPath": "C:\\Users\\jarek\\OneDrive\\Dokumenty\\Programování\\MojeProjekty\\Games\\Pexeso\\Pexeso\\Pexeso.csproj",
       "packagesPath": "C:\\Users\\jarek\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jarek\\OneDrive\\Dokumenty\\Programování\\MojeProjekty\\Pexeso\\Pexeso\\obj\\",
+      "outputPath": "C:\\Users\\jarek\\OneDrive\\Dokumenty\\Programování\\MojeProjekty\\Games\\Pexeso\\Pexeso\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
