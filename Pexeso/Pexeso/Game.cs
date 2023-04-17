@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Threading;
 using System.Drawing;
 using System.Windows.Media;
+using System.Windows;
 
 namespace Pexeso
 {
@@ -19,7 +20,6 @@ namespace Pexeso
         public int Tries { get; set; }
         public int Pairs { get; set; }
         public int Found { get; set; }
-        public bool Win { get; set; }
         public string WinText { get; set; }
         private Button firstCard;
         private Button secondCard;
@@ -30,14 +30,19 @@ namespace Pexeso
             Pairs = pairs;
             Tries = 0;
             Found = 0;
-            Win = false;
             WinText = "";
         }
-
+        bool canErase = true;
         public void Play(object sender)
         {
             if (firstMove)
             {
+                if (secondCard != null)
+                {
+                    if (canErase)
+                        secondCard.Content = "";
+                    canErase = true;
+                }
                 firstMove = false;
                 firstCard = (Button)sender;
                 firstCard.IsEnabled = false;
@@ -50,11 +55,20 @@ namespace Pexeso
                 secondCard = (Button)sender;
                 if (firstCard.Name == secondCard.Name)
                 {
+                    canErase = false;
                     secondCard.IsEnabled = false;
-                    firstCard.Foreground = new SolidColorBrush(Colors.Cyan);
-                    secondCard.Foreground = new SolidColorBrush(Colors.Cyan);
+                    secondCard.Content = secondCard.Name;
+                    firstCard.Foreground = new SolidColorBrush(Colors.Green);
+                    secondCard.Foreground = new SolidColorBrush(Colors.Green);
                     Found++;
                     OnPropertyChanged(nameof(Found));
+                    if (Found == Pairs)
+                    {
+                        WinText = "Skvělá práce!";
+                        OnPropertyChanged(nameof(WinText));
+                        MessageBox.Show("Pokud chcete začít novou hru, klikněte na tlačítko restart");
+                    }
+
                 }
                 else
                 {
@@ -78,4 +92,5 @@ namespace Pexeso
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
 }

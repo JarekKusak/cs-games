@@ -93,7 +93,7 @@ namespace Pexeso
                         if (btns[x, y].Name == $"button0")
                         {
                             btns[x, y].Name = $"button{i+1}";
-                            btns[x, y].Content = $"button{i}";
+                            //btns[x, y].Content = $"button{i+1}";
                             foundEmptyButton = true;
                         }
                     }
@@ -110,6 +110,7 @@ namespace Pexeso
                     btns[i, j].Name = "button0";
                     btns[i, j].Content = "";
                     btns[i, j].IsEnabled = true;
+                    btns[i, j].Foreground = new SolidColorBrush(Colors.Black);
                 }
             }
         }
