@@ -16,12 +16,16 @@ namespace Pexeso
         public int Tries { get; set; }
         public int Pairs { get; set; }
         public int Found { get; set; }
+        public bool Win { get; set; }
+        public string WinText { get; set; }
         public Game(Button[,] buttons, int pairs) 
         {
             this.buttons = buttons;
             Pairs = pairs;
             Tries = 0;
             Found = 0;
+            Win = false;
+            WinText = "";
         }
         /// <summary>
         /// Aktualizace TextBlocků

@@ -25,10 +25,12 @@ namespace Pexeso
         private int m;
         private int pairs;
         private Button[,] btns;
+        private Random rd;
         public MainWindow(int pairs)
         {
             InitializeComponent();
-            
+            rd = new Random();
+            this.pairs = pairs;
             // napsané trochu na hovado :D    
             if (pairs == 10)
             {
@@ -50,13 +52,47 @@ namespace Pexeso
 
             Loaded += LoadBoard;
             Loaded += NewGame;
+
             restartBtn.Click += NewGame;
         }
 
+        /// <summary>
+        /// New game object
+        /// </summary>
         private void NewGame(object sender, RoutedEventArgs e)
         {
             Game game = new Game(btns, pairs);
             DataContext = game;
+        }
+
+        private void ButtonClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Sets IDs of pairs
+        /// </summary>
+        private void SetRandomPairs()
+        {
+            for (int j = 0; j < 2; j++) // we need to mark every button twice
+            {
+                for (int i = 0; i < pairs; i++)
+                {
+                    bool foundEmptyButton = false;
+                    while (!foundEmptyButton)
+                    {
+                        int x = rd.Next(n);
+                        int y = rd.Next(m);
+                        if (btns[x, y].Name == $"button{pairs}")
+                        {
+                            btns[x, y].Name = $"button{i}";
+                            btns[x, y].Content = $"button{i}";
+                            foundEmptyButton = true;
+                        }
+                    }
+                }
+            }    
         }
 
         private void LoadBoard(object sender, RoutedEventArgs e)
@@ -92,11 +128,13 @@ namespace Pexeso
                     border.VerticalAlignment = VerticalAlignment.Stretch;
 
                     Button btn = new Button();
+                    btn.Name = $"button{pairs}";
                     btn.Height = 30;
                     btn.Width = 30;
                     btn.FontSize = 5;
-                    btn.Content = string.Format($"i={i}; j={j}");
-                    //btn.Margin = new Thickness(2);
+                    
+                    btn.Click += ButtonClicked;
+                    btns[i, j] = btn;
 
                     Grid.SetColumn(border, j);
                     Grid.SetRow(border, i);
@@ -105,6 +143,7 @@ namespace Pexeso
                     board.Children.Add(border);
                 }
             }
+            SetRandomPairs();
         }
     }
 }
