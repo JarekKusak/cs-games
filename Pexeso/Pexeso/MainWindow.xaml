@@ -1,0 +1,46 @@
+﻿<Window x:Class="Pexeso.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pexeso" d:DataContext="{d:DesignInstance Type=local:Game}"
+        mc:Ignorable="d"
+        Title="Pexeso" Height="600" Width="1000" MinHeight="600" MinWidth="1000" WindowStartupLocation="CenterScreen">
+    <Grid  Margin="5">
+        <Viewbox Stretch="Uniform">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="restartBtn" Grid.Column="1" Content="Restart" HorizontalAlignment="Center" Height="10" FontSize="5"/>
+                <Grid Grid.Column="0" x:Name="board" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions/>
+                    <Grid.RowDefinitions/>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" HorizontalAlignment="Right" Orientation="Horizontal">
+                        <TextBlock Text="Odkrytých dvojic: " TextAlignment="Center" FontSize="8"/>
+                        <TextBlock Text="0/" TextAlignment="Center" Margin="10,0,0,0" FontSize="8"/>
+                        <TextBlock Text="{Binding Pairs}" TextAlignment="Center" FontSize="8"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                        <TextBlock Text="Počet pokusů: " TextAlignment="Center" FontSize="8"/>
+                        <TextBlock Text="{Binding Tries}" TextAlignment="Center" Margin="10,0,0,0" FontSize="8"/>
+                    </StackPanel>
+                </Grid>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="Autor: Jaroslav Kusák" HorizontalAlignment="Right" TextAlignment="Center" FontSize="3"/>
+            </Grid>
+           
+        </Viewbox>
+    </Grid>
+</Window>
