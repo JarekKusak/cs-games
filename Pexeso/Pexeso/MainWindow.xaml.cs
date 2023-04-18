@@ -24,6 +24,7 @@ namespace Pexeso
         private int n;
         private int m;
         private int pairs;
+        private static string basicName = "button0";
         private Button[,] btns;
         private Random rd;
         private Game game;
@@ -32,18 +33,19 @@ namespace Pexeso
             InitializeComponent();
             rd = new Random();
             this.pairs = pairs;
-            // napsané trochu na hovado :D    
-            if (pairs == 10)
+            
+            // we have only three posibilities of number of pairs: 10, 20, 30
+            if (pairs == 10) // dimensions for 20 cards
             {
                 n = 4;
                 m = 5;
             }
-            else if (pairs == 20)
+            else if (pairs == 20) // dimensions for 40 cards
             {
                 n = 5;
                 m = 8;
             }
-            else if (pairs == 30)
+            else if (pairs == 30) // dimensions for 60 cards
             {
                 n = 6;
                 m = 10;
@@ -54,7 +56,14 @@ namespace Pexeso
             Loaded += LoadBoard;
             Loaded += NewGame;
 
-            restartBtn.Click += NewGame;
+            restartBtn.Click += ShowStartingWindow;
+        }
+
+        private void ShowStartingWindow(object sender, RoutedEventArgs e)
+        {
+            StartingMenu startingMenu = new StartingMenu();
+            startingMenu.Show();
+            Close();
         }
 
         /// <summary>
@@ -62,11 +71,6 @@ namespace Pexeso
         /// </summary>
         private void NewGame(object sender, RoutedEventArgs e)
         {
-            if (sender == restartBtn)
-            {
-                ResetButtons();
-                SetRandomPairs();
-            }
             game = new Game(btns, pairs);
             DataContext = game;
         }
@@ -77,7 +81,7 @@ namespace Pexeso
         }
 
         /// <summary>
-        /// Sets IDs of pairs
+        /// Sets random IDs of pairs
         /// </summary>
         private void SetRandomPairs()
         {
@@ -90,7 +94,7 @@ namespace Pexeso
                     {
                         int x = rd.Next(n);
                         int y = rd.Next(m);
-                        if (btns[x, y].Name == $"button0")
+                        if (btns[x, y].Name == basicName)
                         {
                             btns[x, y].Name = $"button{i+1}";
                             //btns[x, y].Content = $"button{i+1}";
@@ -101,20 +105,9 @@ namespace Pexeso
             }
         }
 
-        private void ResetButtons()
-        {
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < m; j++)
-                {
-                    btns[i, j].Name = "button0";
-                    btns[i, j].Content = "";
-                    btns[i, j].IsEnabled = true;
-                    btns[i, j].Foreground = new SolidColorBrush(Colors.Black);
-                }
-            }
-        }
-
+        /// <summary>
+        /// Loads matrix onto the window
+        /// </summary>
         private void LoadBoard(object sender, RoutedEventArgs e)
         {
             board.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -148,7 +141,7 @@ namespace Pexeso
                     border.VerticalAlignment = VerticalAlignment.Stretch;
 
                     Button btn = new Button();
-                    btn.Name = $"button0";
+                    btn.Name = basicName;
                     btn.Height = 30;
                     btn.Width = 30;
                     btn.FontSize = 5;
