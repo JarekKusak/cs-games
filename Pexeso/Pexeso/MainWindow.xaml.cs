@@ -24,7 +24,7 @@ namespace Pexeso
         private int n;
         private int m;
         private int pairs;
-        private static string basicName = "button0";
+        private static string basicName = "card0";
         private Button[,] btns;
         private Random rd;
         private Game game;
@@ -96,7 +96,7 @@ namespace Pexeso
                         int y = rd.Next(m);
                         if (btns[x, y].Name == basicName)
                         {
-                            btns[x, y].Name = $"button{i+1}";
+                            btns[x, y].Name = $"card{i+1}";
                             //btns[x, y].Content = $"button{i+1}";
                             foundEmptyButton = true;
                         }
