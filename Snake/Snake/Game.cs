@@ -11,7 +11,7 @@ namespace Snake
         private Table table;
         private Snake snake;
         private Apple apple;
-        private ConsoleKeyInfo c; // třída s potřebnými metodami pro kontrolu vstupu uživatele
+        private ConsoleKeyInfo c;
         private bool gameStillGoing;
         private bool playMore;
         private char move;
@@ -40,8 +40,6 @@ namespace Snake
             // začátek hry 
             gameStillGoing = true;
             snake.SnakeOutput(); // vypíše hlavu hada na původní místo
-            
-            //apple.CreateFirstApple(table.CenterOfTable, table.CenterOfTable); // vytvoří první jablko  
             Console.SetCursorPosition(0, table.Length);
             move = Console.ReadKey().KeyChar; // požadavek na zahájení tahu 
             
