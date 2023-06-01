@@ -26,19 +26,19 @@ namespace Snake
                     switch (Console.ReadLine().ToString().ToLower())
                     {
                         case "easy":
-                            delay = 200;
-                            validOption = true;
-                            break;
-                        case "normal":
-                            delay = 150;
-                            validOption = true;
-                            break;
-                        case "hard":
                             delay = 100;
                             validOption = true;
                             break;
-                        case "extreme":
+                        case "normal":
+                            delay = 75;
+                            validOption = true;
+                            break;
+                        case "hard":
                             delay = 50;
+                            validOption = true;
+                            break;
+                        case "extreme":
+                            delay = 25;
                             validOption = true;
                             break;
                         default:

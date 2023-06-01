@@ -77,7 +77,6 @@ namespace Snake
                                 if (End() == false) // control for end of the game
                                     break; // break for ending next move (end of cycle)
                                 Thread.Sleep(delay);
-
                             }
                             if (End() == true)
                                 c = Console.ReadKey(true);
@@ -95,7 +94,6 @@ namespace Snake
                                 if (End() == false)
                                     break;
                                 Thread.Sleep(delay);
-
                             }
                             if (End() == true)
                                 c = Console.ReadKey(true);
@@ -113,7 +111,6 @@ namespace Snake
                                 if (End() == false)
                                     break;
                                 Thread.Sleep(delay);
-
                             }
                             if (End() == true)
                                 c = Console.ReadKey(true);
