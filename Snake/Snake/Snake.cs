@@ -18,6 +18,9 @@ namespace Snake
         private int[] coordinatesY; // y coordinates of body parts
         private int bodyParts; // counter of all body parts (including head and "remover")
         private bool collision;
+        private char[] keys;
+        private bool overTheEdge;
+        private Direction direction;
 
         enum Direction
         {
@@ -27,12 +30,13 @@ namespace Snake
             Right
         }
 
-        public Snake(Table table, Apple apple, char head, char body)
+        public Snake(Table table, Apple apple, char[] keys, char head, char body)
         {
             this.head = head;
             this.body = body;
             this.apple = apple;
             this.table = table;
+            this.keys = keys;
             coordinatesX = new int[(table.Length - 2) * (table.Length - 2)];
             coordinatesY = new int[(table.Length - 2) * (table.Length - 2)];
             headX = (table.Length + 1) / 2 - 1;
@@ -112,67 +116,55 @@ namespace Snake
             }
         }
 
-        /// <summary>
-        /// Upwards movement of snake
-        /// </summary>
-        public void GoUp()
+        public void GoSnake(char move)
         {
-            headY--; // coordinates of head for control 
-            bool overTheEdge = false;
-            if (headY == 0) // collision with edge 
+            overTheEdge = false;
+            
+            if (move == keys[0])
             {
-                headY = table.Length - 2; // head of snake goes over the edge (upwards)
+                headY--;
+                direction = Direction.Up;
+            }
+            else if (move == keys[1])
+            {
+                headY++;
+                direction = Direction.Down;
+            }              
+            else if (move == keys[2])
+            {
+                headX--;
+                direction = Direction.Left;
+            }               
+            else if (move == keys[3])
+            {
+                headX++;
+                direction = Direction.Right;
+            }
+
+            if (headY == 0)
+            {
+                headY = table.Length - 2;
                 overTheEdge = true;
             }
-            Movement(Direction.Up, overTheEdge);
-            SnakeOutput();
-        }
-
-        /// <summary>
-        /// Downwards movement of snake
-        /// </summary>
-        public void GoDown()
-        {
-            headY++;
-            bool overTheEdge = false;
-            if (headY == table.Length - 1) // over the edge
+            else if (headY == table.Length - 1)
             {
                 headY = 1;
                 overTheEdge = true;
             }
-            Movement(Direction.Down, overTheEdge);
-            SnakeOutput();
-        }
-        /// <summary>
-        /// Left movement of snake
-        /// </summary>
-        public void GoLeft()
-        {
-            headX--;
-            bool overTheEdge = false;
-            if (headX == 0)
+            else if (headX == 0)
             {
                 headX = table.Length - 2;
                 overTheEdge = true;
             }
-            Movement(Direction.Left, overTheEdge);
-            SnakeOutput();
-        }
-        /// <summary>
-        /// Right movement of snake
-        /// </summary>
-        public void GoRight()
-        {
-            headX++;
-            bool overTheEdge = false;
-            if (headX == table.Length - 1)
+            else if (headX == table.Length - 1)
             {
                 headX = 1;
                 overTheEdge = true;
             }
-            Movement(Direction.Right, overTheEdge);
+            Movement(direction, overTheEdge);
             SnakeOutput();
         }
+
         /// <summary>
         /// Outputing snake on the screen
         /// </summary>
