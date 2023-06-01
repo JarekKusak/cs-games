@@ -52,10 +52,7 @@ namespace Snake
         public void AddPoints() // sčítá skóre
         {
             points = points + 10;
-            Console.SetCursorPosition(2*table.Length + 10, table.CenterOfTable);
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Skóre: {0}", points);
-            Console.ResetColor();
+            OutputScore();
         }
         /// <summary>
         /// Creates an apple 
@@ -69,9 +66,7 @@ namespace Snake
         {
             WriteDownAppleCoordinates();
             if (x == n && y == m) // ošetřená výjímka při vytvoření jablka na místě hlavy hada 
-            {
                 WriteDownAppleCoordinates();
-            }
             bool semaf = true;
 
             while (semaf)
@@ -79,25 +74,36 @@ namespace Snake
                 for (int i = 0; i < bodyParts; i++)
                 {
                     if (cx[i] == x && cy[i] == y)
-                    {
-                        WriteDownAppleCoordinates();
-                    }
+                        WriteDownAppleCoordinates();      
                 }
                 int counter = 0;
                 for (int i = 0; i < bodyParts; i++)
                 {
                     if (cx[i] == x && cy[i] == y)
-                    {
-                        semaf = true;
-                    }
+                        semaf = true; 
                     else counter++;
                 }
                 if (counter == bodyParts)
                     semaf = false;
             }
+
+            OutputApple(x,y);
+            
+        }
+
+        void OutputApple(int x, int y)
+        {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.SetCursorPosition(2 * x, y);
             Console.WriteLine(apple);
+            Console.ResetColor();
+        }
+
+        void OutputScore()
+        {
+            Console.SetCursorPosition(2 * table.Length + 10, table.CenterOfTable);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Skóre: {0}", points);
             Console.ResetColor();
         }
     }
