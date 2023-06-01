@@ -16,6 +16,7 @@ namespace Snake
         private bool playMore;
         private char move;
         private int delay;
+        private char[] keys = { 'w', 's', 'a', 'd' };
 
         public Game(Table tabulka, int doba)
         {
@@ -32,7 +33,7 @@ namespace Snake
             Console.CursorVisible = false;
             // new objects              
             apple = new Apple(table, 'O');
-            snake = new Snake(table, apple, 'X', 'x');
+            snake = new Snake(table, apple, keys, 'X', 'x');
             // start of the game 
             gameStillGoing = true;
             snake.SnakeOutput(); // outputs snake's head on standard place
@@ -48,14 +49,44 @@ namespace Snake
         {
             SetupNewGame();
             // main loop
-            while (gameStillGoing)
-            {
-                Move();
-            }
+            while (gameStillGoing)    
+                Move();     
             Console.CursorVisible = true;
             playMore = Question();
             Console.Clear();
             return playMore;
+        }
+
+        void RepeatMovementUntilInterrupt(char key)
+        {
+            ConsoleKey forbidenKey1;
+            ConsoleKey forbidenKey2;
+            if (key == keys[0] || key == keys[1])
+            {
+                forbidenKey1 = ConsoleKey.A;
+                forbidenKey2 = ConsoleKey.D;
+            }
+            else
+            {
+                forbidenKey1 = ConsoleKey.W;
+                forbidenKey2 = ConsoleKey.S;
+            }
+
+            do
+            {
+                while (Console.KeyAvailable == false) // records user input undisturbed
+                {
+                    snake.GoSnake(key);
+                    if (End() == false) // control for end of the game
+                        break; // break for ending next move (end of cycle)
+                    Thread.Sleep(delay);
+                }
+                if (End() == true)
+                    c = Console.ReadKey(true);
+                else break;
+            }
+            while (c.Key != forbidenKey1 && c.Key != forbidenKey2);
+            move = c.KeyChar; // saves last entered input of player
         }
 
         /// <summary>
@@ -69,72 +100,16 @@ namespace Snake
                 switch (Char.ToLower(move))
                 {
                     case 'w': // upwards direction                                               
-                        do
-                        {
-                            while (Console.KeyAvailable == false) // records user input undisturbed
-                            {
-                                snake.GoUp();
-                                if (End() == false) // control for end of the game
-                                    break; // break for ending next move (end of cycle)
-                                Thread.Sleep(delay);
-                            }
-                            if (End() == true)
-                                c = Console.ReadKey(true);
-                            else break;                             
-                        }
-                        while (c.Key != ConsoleKey.A && c.Key != ConsoleKey.D);
-                        move = c.KeyChar; // saves last entered input of player
+                        RepeatMovementUntilInterrupt(keys[0]);
                         break;
                     case 's': // downwards direction
-                        do
-                        {
-                            while (Console.KeyAvailable == false) // records user input undisturbed
-                            {
-                                snake.GoDown();
-                                if (End() == false)
-                                    break;
-                                Thread.Sleep(delay);
-                            }
-                            if (End() == true)
-                                c = Console.ReadKey(true);
-                            else break;
-                        }
-                        while (c.Key != ConsoleKey.A && c.Key != ConsoleKey.D);
-                        move = c.KeyChar;
+                        RepeatMovementUntilInterrupt(keys[1]);
                         break;
                     case 'a': // left direction
-                        do
-                        {
-                            while (Console.KeyAvailable == false) // records user input undisturbed
-                            {
-                                snake.GoLeft();
-                                if (End() == false)
-                                    break;
-                                Thread.Sleep(delay);
-                            }
-                            if (End() == true)
-                                c = Console.ReadKey(true);
-                            else break;
-                        }
-                        while (c.Key != ConsoleKey.W && c.Key != ConsoleKey.S);
-                        move = c.KeyChar;
+                        RepeatMovementUntilInterrupt(keys[2]);
                         break;
                     case 'd': // right direction
-                        do
-                        {
-                            while (Console.KeyAvailable == false) // records user input undisturbed
-                            {
-                                snake.GoRight();
-                                if (End() == false)
-                                    break;
-                                Thread.Sleep(delay);
-                            }
-                            if (End() == true)
-                                c = Console.ReadKey(true);
-                            else break;
-                        }
-                        while (c.Key != ConsoleKey.W && c.Key != ConsoleKey.S);
-                        move = c.KeyChar;
+                        RepeatMovementUntilInterrupt(keys[3]);
                         break;
                     default: // if player enters wrong key for the first time
                         Console.WriteLine("Neplatná volba, zadejte prosím [W/S/A/D]");
