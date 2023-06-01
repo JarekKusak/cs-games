@@ -52,7 +52,7 @@ namespace Snake
             for (int i = bodyParts - 1; i > 0; i--)
             {
                 coordinatesX[i] = coordinatesX[i - 1];
-                coordinatesY[i] = coordinatesY[i - 1];  
+                coordinatesY[i] = coordinatesY[i - 1];
             }
         }
 
@@ -89,35 +89,25 @@ namespace Snake
                 coordinatesX[0] = coordinatesX[0] + 1;
         }
 
-        void OverTheEdgeMovement(Direction direction)
+        void Movement(Direction direction, bool crossedEdge)
         {
             if (apple.CheckStateOfApple(m, n) == false) // false -> snakes moves normally 
             {
                 MoveSnake();
-                ChangeCoordinateAfterCrossingTheEdge(direction);
+                if (crossedEdge)
+                    ChangeCoordinateAfterCrossingTheEdge(direction);
+                else
+                    ChangeCoordinatesAfterNormalMovement(direction);
 
             }
             else // snake eats apple and its body grows
             {
                 MoveSnakeAfterEatingApple();
-                ChangeCoordinateAfterCrossingTheEdge(direction);
+                if (crossedEdge)
+                    ChangeCoordinateAfterCrossingTheEdge(direction);
+                else
+                    ChangeCoordinatesAfterNormalMovement(direction);
                 bodyParts++; // +1 body segment
-                apple.CreateApple(coordinatesX, coordinatesY, bodyParts, m, n);
-            }
-        }
-
-        void NormalMovement(Direction direction)
-        {
-            if (apple.CheckStateOfApple(m, n) == false) // false -> snakes moves normally 
-            {
-                MoveSnake();
-                ChangeCoordinatesAfterNormalMovement(direction);
-            }
-            else // snake eats apple and its body grows 
-            {
-                MoveSnakeAfterEatingApple();
-                ChangeCoordinatesAfterNormalMovement(direction);
-                bodyParts++; // +1 body segment 
                 apple.CreateApple(coordinatesX, coordinatesY, bodyParts, m, n);
             }
         }
@@ -128,13 +118,13 @@ namespace Snake
         public void GoUp()
         {
             m--; // coordinates of head for control 
+            bool overTheEdge = false;
             if (m == 0) // collision with edge 
             {
                 m = table.Length - 2; // head of snake goes over the edge (upwards)
-                OverTheEdgeMovement(Direction.Up);
+                overTheEdge = true;
             }
-            else
-                NormalMovement(Direction.Up);
+            Movement(Direction.Up, overTheEdge);
             SnakeOutput();
         }
 
@@ -144,13 +134,13 @@ namespace Snake
         public void GoDown()
         {
             m++;
+            bool overTheEdge = false;
             if (m == table.Length - 1) // over the edge
             {
                 m = 1;
-                OverTheEdgeMovement(Direction.Down);
+                overTheEdge = true;
             }
-            else
-                NormalMovement(Direction.Down);
+            Movement(Direction.Down, overTheEdge);
             SnakeOutput();
         }
         /// <summary>
@@ -159,13 +149,13 @@ namespace Snake
         public void GoLeft()
         {
             n--;
+            bool overTheEdge = false;
             if (n == 0)
             {
                 n = table.Length - 2;
-                OverTheEdgeMovement(Direction.Left);
+                overTheEdge = true;
             }
-            else
-                NormalMovement(Direction.Left);
+            Movement(Direction.Left, overTheEdge);
             SnakeOutput();
         }
         /// <summary>
@@ -174,13 +164,13 @@ namespace Snake
         public void GoRight()
         {
             n++;
+            bool overTheEdge = false;
             if (n == table.Length - 1)
             {
                 n = 1;
-                OverTheEdgeMovement(Direction.Right);
+                overTheEdge = true;
             }
-            else
-                NormalMovement(Direction.Right);
+            Movement(Direction.Right, overTheEdge);
             SnakeOutput();
         }
         /// <summary>
