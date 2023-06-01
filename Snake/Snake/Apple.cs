@@ -67,9 +67,9 @@ namespace Snake
             WriteDownAppleCoordinates();
             if (x == n && y == m) // ošetřená výjímka při vytvoření jablka na místě hlavy hada 
                 WriteDownAppleCoordinates();
-            bool semaf = true;
+            bool needToGenerateNewCoordinates = true;
 
-            while (semaf)
+            while (needToGenerateNewCoordinates)
             {
                 for (int i = 0; i < bodyParts; i++)
                 {
@@ -80,13 +80,12 @@ namespace Snake
                 for (int i = 0; i < bodyParts; i++)
                 {
                     if (cx[i] == x && cy[i] == y)
-                        semaf = true; 
+                        needToGenerateNewCoordinates = true; 
                     else counter++;
                 }
                 if (counter == bodyParts)
-                    semaf = false;
+                    needToGenerateNewCoordinates = false;
             }
-
             OutputApple(x,y);
             
         }

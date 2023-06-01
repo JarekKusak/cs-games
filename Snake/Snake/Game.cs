@@ -25,24 +25,28 @@ namespace Snake
             this.delay = doba;
         }
 
-        /// <summary>
-        /// Main method for initializing objects and launching game
-        /// </summary>
-        /// <returns> Returns true if player wants to play more </returns>
-        public bool Play() // metoda spustí hru 
+        void SetupNewGame()
         {
             Console.Clear();
             table.TableOutput();
             Console.CursorVisible = false;
-            // založení nových objektů                
+            // new objects              
             apple = new Apple(table, 'O');
             snake = new Snake(table, apple, 'X', 'x');
-            // začátek hry 
+            // start of the game 
             gameStillGoing = true;
-            snake.SnakeOutput(); // vypíše hlavu hada na původní místo
+            snake.SnakeOutput(); // outputs snake's head on standard place
             Console.SetCursorPosition(0, table.Length);
-            move = Console.ReadKey().KeyChar; // požadavek na zahájení tahu 
-            
+            move = Console.ReadKey().KeyChar; // demand for entering the move
+        }
+
+        /// <summary>
+        /// Main method for initializing objects and launching game
+        /// </summary>
+        /// <returns> Returns true if player wants to play more </returns>
+        public bool Play() // main method
+        {
+            SetupNewGame();
             // main loop
             while (gameStillGoing)
             {

@@ -12,8 +12,8 @@ namespace Snake
         private Apple apple;
         private char head;
         private char body;
-        public int n;
-        public int m;
+        public int headX;
+        public int headY;
         private int[] coordinatesX; // x coordinates of body parts
         private int[] coordinatesY; // y coordinates of body parts
         private int bodyParts; // counter of all body parts (including head and "remover")
@@ -35,16 +35,16 @@ namespace Snake
             this.table = table;
             coordinatesX = new int[(table.Length - 2) * (table.Length - 2)];
             coordinatesY = new int[(table.Length - 2) * (table.Length - 2)];
-            n = (table.Length + 1) / 2 - 1;
-            m = n;
-            coordinatesX[0] = n;
-            coordinatesY[0] = m;
-            coordinatesX[1] = n; // x coor. of "remover"
-            coordinatesY[1] = m + 1; // y coor. of "remover"
+            headX = (table.Length + 1) / 2 - 1;
+            headY = headX;
+            coordinatesX[0] = headX;
+            coordinatesY[0] = headY;
+            coordinatesX[1] = headX; // x coor. of "remover"
+            coordinatesY[1] = headY + 1; // y coor. of "remover"
             bodyParts = 2; // number of body segments: head + "remover"
             collision = true;
 
-            apple.CreateApple(coordinatesX, coordinatesY, bodyParts, m, n); // creates first apple
+            apple.CreateApple(coordinatesX, coordinatesY, bodyParts, headY, headX); // creates first apple
         }
 
         void MoveSnake()
@@ -91,7 +91,7 @@ namespace Snake
 
         void Movement(Direction direction, bool crossedEdge)
         {
-            if (apple.CheckStateOfApple(m, n) == false) // false -> snakes moves normally 
+            if (apple.CheckStateOfApple(headY, headX) == false) // false -> snakes moves normally 
             {
                 MoveSnake();
                 if (crossedEdge)
@@ -108,7 +108,7 @@ namespace Snake
                 else
                     ChangeCoordinatesAfterNormalMovement(direction);
                 bodyParts++; // +1 body segment
-                apple.CreateApple(coordinatesX, coordinatesY, bodyParts, m, n);
+                apple.CreateApple(coordinatesX, coordinatesY, bodyParts, headY, headX);
             }
         }
 
@@ -117,11 +117,11 @@ namespace Snake
         /// </summary>
         public void GoUp()
         {
-            m--; // coordinates of head for control 
+            headY--; // coordinates of head for control 
             bool overTheEdge = false;
-            if (m == 0) // collision with edge 
+            if (headY == 0) // collision with edge 
             {
-                m = table.Length - 2; // head of snake goes over the edge (upwards)
+                headY = table.Length - 2; // head of snake goes over the edge (upwards)
                 overTheEdge = true;
             }
             Movement(Direction.Up, overTheEdge);
@@ -133,11 +133,11 @@ namespace Snake
         /// </summary>
         public void GoDown()
         {
-            m++;
+            headY++;
             bool overTheEdge = false;
-            if (m == table.Length - 1) // over the edge
+            if (headY == table.Length - 1) // over the edge
             {
-                m = 1;
+                headY = 1;
                 overTheEdge = true;
             }
             Movement(Direction.Down, overTheEdge);
@@ -148,11 +148,11 @@ namespace Snake
         /// </summary>
         public void GoLeft()
         {
-            n--;
+            headX--;
             bool overTheEdge = false;
-            if (n == 0)
+            if (headX == 0)
             {
-                n = table.Length - 2;
+                headX = table.Length - 2;
                 overTheEdge = true;
             }
             Movement(Direction.Left, overTheEdge);
@@ -163,11 +163,11 @@ namespace Snake
         /// </summary>
         public void GoRight()
         {
-            n++;
+            headX++;
             bool overTheEdge = false;
-            if (n == table.Length - 1)
+            if (headX == table.Length - 1)
             {
-                n = 1;
+                headX = 1;
                 overTheEdge = true;
             }
             Movement(Direction.Right, overTheEdge);
@@ -200,10 +200,8 @@ namespace Snake
         {
             for (int i = 1; i < bodyParts - 1; i++) // i = 1, because head is not counted to body parts without "remover"
             {
-                if (n == coordinatesX[i] && m == coordinatesY[i])
-                {
+                if (headX == coordinatesX[i] && headY == coordinatesY[i])
                     collision = false;
-                }
             }
             return collision;
         }
