@@ -20,14 +20,10 @@ namespace Snake
             Length = length;
             matrix = new char[length, length];
             centerOfTable = (length + 1) / 2 - 1;
-            for (int i = 0; i < length; i++)
-            {
-                for (int j = 0; j < length; j++)
-                {
-                    matrix[i, j] = character;
-                }
-            }
-            // nastaví linky na své místa 
+            for (int i = 0; i < length; i++)       
+                for (int j = 0; j < length; j++)             
+                    matrix[i, j] = character;             
+            // edges
             for (int i = 0; i < length; i++)
                 matrix[i, 0] = '-';
             for (int i = 0; i < length; i++)

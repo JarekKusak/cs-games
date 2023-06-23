@@ -11,6 +11,7 @@ namespace Snake
         private Table table;
         private Snake snake;
         private Apple apple;
+        private Manager manager;
         private ConsoleKeyInfo c;
         private bool gameStillGoing;
         private bool playMore;
@@ -18,12 +19,67 @@ namespace Snake
         private int delay;
         private char[] keys = { 'w', 's', 'a', 'd' };
 
-        public Game(Table tabulka, int doba)
+        public Game(Table tabulka)
         {
             c = new ConsoleKeyInfo();
             playMore = true;
             this.table = tabulka;
-            this.delay = doba;
+            SetupManager();
+            
+        }
+
+        void SetupManager()
+        {
+            string path = "";
+            try
+            {
+                path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DatabazeHracu");
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+            }
+            catch
+            {
+                Console.WriteLine("Nepodařilo se vytvořit složku " + path + ", zkontrolujte prosím svá oprávnění.");
+            }
+            manager = new Manager(System.IO.Path.Combine(path, "players.csv"));
+        }
+
+        public void StartupMenu()
+        {
+            while (playMore)
+            {
+                bool validOption = false;
+                Console.WriteLine("Ovládat hada můžete pomocí tlačítek [W/S/A/D].");
+                Console.WriteLine("Zadejte obtížnost ve formátu [easy/normal/hard/extreme]: ");
+
+                while (!validOption)
+                {
+                    switch (Console.ReadLine().ToString().ToLower())
+                    {
+                        case "easy":
+                            delay = 100;
+                            validOption = true;
+                            break;
+                        case "normal":
+                            delay = 75;
+                            validOption = true;
+                            break;
+                        case "hard":
+                            delay = 50;
+                            validOption = true;
+                            break;
+                        case "extreme":
+                            delay = 25;
+                            validOption = true;
+                            break;
+                        default:
+                            validOption = false;
+                            Console.WriteLine("Neplatná volba, zadejte prosím [easy/normal/hard/extreme]");
+                            break;
+                    }
+                }
+                playMore = Play();
+            }
         }
 
         void SetupNewGame()

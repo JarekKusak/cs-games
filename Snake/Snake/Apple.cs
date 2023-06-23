@@ -25,7 +25,7 @@ namespace Snake
         /// <summary>
         /// Random generator of apple coordinates
         /// </summary>
-        public void WriteDownAppleCoordinates() // metoda vygeneruje náhodné souřadnice jablka v tabulce 
+        public void WriteDownAppleCoordinates()
         {
             x = random.Next(1, table.Length - 1);
             y = random.Next(1, table.Length - 1);
@@ -33,12 +33,12 @@ namespace Snake
         /// <summary>
         /// If snakes head hit the apple, points are added
         /// </summary>
-        /// <param name="m"> x coordinate of snakes head </param>
-        /// <param name="n"> y coordinate of snakes head </param>
+        /// <param name="headX"> x coordinate of snakes head </param>
+        /// <param name="headY"> y coordinate of snakes head </param>
         /// <returns> did/did not </returns>
-        public bool CheckStateOfApple(int m, int n) // kontroluje, zda nedošlo ke kolizi souřadnic hlavy hada a jablka 
+        public bool CheckStateOfApple(int headY, int headX) 
         {
-            if (x == n && y == m)
+            if (x == headX && y == headY)
             {
                 AddPoints();
                 return true;
@@ -57,29 +57,27 @@ namespace Snake
         /// <summary>
         /// Creates an apple 
         /// </summary>
-        /// <param name="cx"> array of x coordinates of snake body parts </param>
-        /// <param name="cy"> array of y coordinates of snake body parts </param>
+        /// <param name="coordinatesX"> array of x coordinates of snake body parts </param>
+        /// <param name="coordinatesY"> array of y coordinates of snake body parts </param>
         /// <param name="bodyParts"> number of body parts of snake </param>
-        /// <param name="m"> x coordinate of snakes head </param>
-        /// <param name="n"> y coordinate of snakes head </param>
-        public void CreateApple(int[] cx, int[] cy, int bodyParts, int m, int n) // vypíše jablko na místo určené souřadnicemi x,y
+        /// <param name="headY"> x coordinate of snakes head </param>
+        /// <param name="headX"> y coordinate of snakes head </param>
+        public void CreateApple(int[] coordinatesX, int[] coordinatesY, int bodyParts, int headY, int headX)
         {
             WriteDownAppleCoordinates();
-            if (x == n && y == m) // ošetřená výjímka při vytvoření jablka na místě hlavy hada 
+            if (x == headX && y == headY) // exception for creating an apple in place of snake's head
                 WriteDownAppleCoordinates();
             bool needToGenerateNewCoordinates = true;
 
             while (needToGenerateNewCoordinates)
             {
                 for (int i = 0; i < bodyParts; i++)
-                {
-                    if (cx[i] == x && cy[i] == y)
+                    if (coordinatesX[i] == x && coordinatesY[i] == y)
                         WriteDownAppleCoordinates();      
-                }
                 int counter = 0;
                 for (int i = 0; i < bodyParts; i++)
                 {
-                    if (cx[i] == x && cy[i] == y)
+                    if (coordinatesX[i] == x && coordinatesY[i] == y)
                         needToGenerateNewCoordinates = true; 
                     else counter++;
                 }

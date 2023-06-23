@@ -119,7 +119,8 @@ namespace Snake
         public void GoSnake(char move)
         {
             overTheEdge = false;
-            
+            // checking combinations of snake movement
+            #region
             if (move == keys[0])
             {
                 headY--;
@@ -161,6 +162,7 @@ namespace Snake
                 headX = 1;
                 overTheEdge = true;
             }
+            #endregion
             Movement(direction, overTheEdge);
             SnakeOutput();
         }
