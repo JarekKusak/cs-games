@@ -25,7 +25,6 @@ namespace Snake
             playMore = true;
             this.table = tabulka;
             SetupManager();
-            
         }
 
         void SetupManager()
@@ -46,6 +45,22 @@ namespace Snake
 
         public void StartupMenu()
         {
+            /*
+            manager.AddPlayer("jirka", 'X', 'x');
+            manager.AddPlayer("batman", 'O', 'x');
+            manager.AddPlayer("doktor", 'X', 'p');
+            */
+            //
+            try
+            {
+                manager.Load();
+                //manager.Save();
+            }
+            catch
+            {
+                Console.WriteLine("Databázi se nepodařilo uložit, zkontrolujte přístupová práva k souboru.");
+            }
+
             while (playMore)
             {
                 bool validOption = false;

@@ -8,5 +8,20 @@ namespace Snake
 {
     internal class Player
     {
+        public string Name { get; set; }
+        public char SnakeHeadCharacter { get; set; }
+        public char SnakeBodyCharacter { get; set; }
+
+        public Player(string name, char snakeHeadCharacter, char snakeBodyCharacter) 
+        {
+            this.Name = name;
+            this.SnakeHeadCharacter = snakeHeadCharacter;
+            this.SnakeBodyCharacter = snakeBodyCharacter;
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
