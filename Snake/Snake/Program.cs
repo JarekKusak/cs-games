@@ -13,8 +13,7 @@ namespace Snake
             // initalization of table
             Table table = new Table(25, ' ');
             Game game = new Game(table);
-
-            Console.WriteLine("Vítejte ve hře HADISKO!\n");
+    
             game.StartupMenu();
 
             Console.WriteLine("Hru ukončíte stisknutím jakéhokoliv tlačítka...");

@@ -18,14 +18,23 @@ namespace Snake
             this.file = file;
         }
 
+        public Player ReturnFirstPlayer()
+        {
+            return players.First();
+        }
+
         public void AddPlayer(string name, char snakeHeadCharacter, char snakeBodyCharacter)
         {
-            if (name.Length < 3)
-                throw new ArgumentException("Jméno je příliš krátké");
-            else if (snakeBodyCharacter == ' ' || snakeHeadCharacter == ' ')
-                throw new ArgumentException("Neplatný znak");
             Player player = new Player(name, snakeHeadCharacter, snakeBodyCharacter);
             players.Add(player);
+        }
+        public void OutputPlayers()
+        {
+            if (players != null)
+            {
+                foreach (Player p in players)
+                    Console.WriteLine(p.Name);
+            }
         }
 
         public void Save()
@@ -35,7 +44,7 @@ namespace Snake
                 foreach (Player p in players)
                 {
                     // vytvoření pole hodnot
-                    string[] values = { p.Name, p.SnakeHeadCharacter.ToString(), p.SnakeBodyCharacter.ToString()};
+                    string[] values = { p.Name, p.SnakeHeadCharacter.ToString(), p.SnakeBodyCharacter.ToString() };
                     // vytvoření řádku
                     string row = String.Join(";", values);
                     // zápis řádku
@@ -44,8 +53,7 @@ namespace Snake
                 // vyprázdnění bufferu
                 sw.Flush();
             }
-            foreach (Player p in players)
-                Console.WriteLine(p.Name);
+            OutputPlayers();
         }
 
         public void Load()
@@ -68,8 +76,7 @@ namespace Snake
                     AddPlayer(name, SnakeHeadCharacter, SnakeBodyCharacter);
                 }
             }
-            foreach (Player p in players)
-                Console.WriteLine(p.Name);
+            OutputPlayers();
         }
     }
 }

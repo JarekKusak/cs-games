@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Snake
 {
@@ -12,9 +13,11 @@ namespace Snake
         private Snake snake;
         private Apple apple;
         private Manager manager;
+        private Player currentPlayer;
         private ConsoleKeyInfo c;
         private bool gameStillGoing;
         private bool playMore;
+        private bool end;
         private char move;
         private int delay;
         private char[] keys = { 'w', 's', 'a', 'd' };
@@ -23,6 +26,7 @@ namespace Snake
         {
             c = new ConsoleKeyInfo();
             playMore = true;
+            end = false;
             this.table = tabulka;
             SetupManager();
         }
@@ -43,52 +47,105 @@ namespace Snake
             manager = new Manager(System.IO.Path.Combine(path, "players.csv"));
         }
 
+        void CreateNewPlayer()
+        {  
+            bool correct = false;
+            
+            Console.WriteLine("Jak se bude váš hráč jmenovat? (jméno musí obsahovat alespoň tři znaky");
+            string name = Console.ReadLine();
+            if (name.Length < 3)
+                Console.WriteLine("Jméno je příliš krátké");
+            char snakeBodyCharacter = ' ';
+            char snakeHeadCharacter = ' ';
+            if (snakeBodyCharacter == ' ' || snakeHeadCharacter == ' ')
+                Console.WriteLine("Neplatný znak");
+        }
+
         public void StartupMenu()
         {
-            /*
-            manager.AddPlayer("jirka", 'X', 'x');
-            manager.AddPlayer("batman", 'O', 'x');
-            manager.AddPlayer("doktor", 'X', 'p');
-            */
-            //
+            Console.WriteLine("Vítejte ve hře HADISKO!");
+
             try
             {
                 manager.Load();
+                currentPlayer = manager.ReturnFirstPlayer();
                 //manager.Save();
             }
             catch
             {
-                Console.WriteLine("Databázi se nepodařilo uložit, zkontrolujte přístupová práva k souboru.");
+                
             }
 
+            while (!end)
+            {
+                Console.WriteLine("Zvolte možnost ve formátu [1/2/3]");
+                Console.WriteLine("1) HRÁT");
+                Console.WriteLine("2) ZMĚNIT/VYTVOŘIT HRÁČE");
+                Console.WriteLine("3) UKONČIT HRU\n");
+                Console.WriteLine("Právě hraje: " + currentPlayer.Name);
+                Console.WriteLine("Jeho/její had: " + currentPlayer.SnakeHeadCharacter + currentPlayer.SnakeBodyCharacter + 
+                    currentPlayer.SnakeBodyCharacter);
+                Console.WriteLine("Jeho/její nejvyšší skóre: " + currentPlayer.MaxScore.ToString());
+
+                bool validOption = false;
+
+                while (!validOption)
+                {
+                    switch (int.Parse(Console.ReadKey().KeyChar.ToString()))
+                    {
+                        case 1:
+                            PlayMenu();
+                            validOption = true;
+                            break;
+                        case 2:
+
+                            validOption = true;
+                            break;
+                        case 3:
+                            end = true;
+                            validOption = true;
+                            break;
+                        default:
+                            validOption = false;
+                            Console.WriteLine("Neplatná volba, zadejte prosím [1/2/3]");
+                            break;
+                    }
+                }
+            }
+        }
+
+        void PlayMenu()
+        {
+            playMore = true;
             while (playMore)
             {
-                bool validOption = false;
+                Console.Clear();
+                bool validDifficulty = false;
                 Console.WriteLine("Ovládat hada můžete pomocí tlačítek [W/S/A/D].");
                 Console.WriteLine("Zadejte obtížnost ve formátu [easy/normal/hard/extreme]: ");
 
-                while (!validOption)
+                while (!validDifficulty)
                 {
                     switch (Console.ReadLine().ToString().ToLower())
                     {
                         case "easy":
                             delay = 100;
-                            validOption = true;
+                            validDifficulty = true;
                             break;
                         case "normal":
                             delay = 75;
-                            validOption = true;
+                            validDifficulty = true;
                             break;
                         case "hard":
                             delay = 50;
-                            validOption = true;
+                            validDifficulty = true;
                             break;
                         case "extreme":
                             delay = 25;
-                            validOption = true;
+                            validDifficulty = true;
                             break;
                         default:
-                            validOption = false;
+                            validDifficulty = false;
                             Console.WriteLine("Neplatná volba, zadejte prosím [easy/normal/hard/extreme]");
                             break;
                     }
@@ -116,7 +173,7 @@ namespace Snake
         /// Main method for initializing objects and launching game
         /// </summary>
         /// <returns> Returns true if player wants to play more </returns>
-        public bool Play() // main method
+        public bool Play()
         {
             SetupNewGame();
             // main loop
