@@ -13,7 +13,7 @@ namespace Snake
         private char apple;
         private int x;
         private int y;
-        private int points;
+        public int Points { get; private set; }
 
         public Apple(Table tabulka, char apple)
         {
@@ -49,9 +49,9 @@ namespace Snake
         /// <summary>
         /// Counts points and is outputing it on the screen
         /// </summary>
-        public void AddPoints() // sčítá skóre
+        public void AddPoints()
         {
-            points = points + 10;
+            Points = Points + 10;
             OutputScore();
         }
         /// <summary>
@@ -100,7 +100,7 @@ namespace Snake
         {
             Console.SetCursorPosition(2 * table.Length + 10, table.CenterOfTable);
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Skóre: {0}", points);
+            Console.WriteLine("Skóre: {0}", Points);
             Console.ResetColor();
         }
     }

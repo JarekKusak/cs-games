@@ -48,7 +48,10 @@ namespace Snake
         }
 
         void CreateNewPlayer()
-        {  
+        {
+            manager.AddPlayer("sobotka", 'c', 'x', 0);
+            manager.Save();
+            /*
             bool correct = false;
             
             Console.WriteLine("Jak se bude váš hráč jmenovat? (jméno musí obsahovat alespoň tři znaky");
@@ -59,6 +62,7 @@ namespace Snake
             char snakeHeadCharacter = ' ';
             if (snakeBodyCharacter == ' ' || snakeHeadCharacter == ' ')
                 Console.WriteLine("Neplatný znak");
+            */
         }
 
         public void StartupMenu()
@@ -68,8 +72,8 @@ namespace Snake
             try
             {
                 manager.Load();
-                currentPlayer = manager.ReturnFirstPlayer();
-                //manager.Save();
+                currentPlayer = manager.ReturnLastPlayer();
+                manager.OutputPlayers();
             }
             catch
             {
@@ -98,7 +102,7 @@ namespace Snake
                             validOption = true;
                             break;
                         case 2:
-
+                            CreateNewPlayer();
                             validOption = true;
                             break;
                         case 3:
@@ -151,6 +155,7 @@ namespace Snake
                     }
                 }
                 playMore = Play();
+                manager.CheckIfHighScoreBeaten(apple.Points, currentPlayer);
             }
         }
 

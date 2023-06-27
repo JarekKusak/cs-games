@@ -13,12 +13,12 @@ namespace Snake
         public char SnakeBodyCharacter { get; set; }
         public int MaxScore { get; set; }
 
-        public Player(string name, char snakeHeadCharacter, char snakeBodyCharacter) 
+        public Player(string name, char snakeHeadCharacter, char snakeBodyCharacter, int maxScore) 
         {
             this.Name = name;
-            this.SnakeHeadCharacter = snakeHeadCharacter;
-            this.SnakeBodyCharacter = snakeBodyCharacter;
-            MaxScore = 0;
+            SnakeHeadCharacter = snakeHeadCharacter;
+            SnakeBodyCharacter = snakeBodyCharacter;
+            MaxScore = maxScore;
         }
 
         public override string ToString()

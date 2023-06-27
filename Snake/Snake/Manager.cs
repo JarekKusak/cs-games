@@ -18,16 +18,26 @@ namespace Snake
             this.file = file;
         }
 
-        public Player ReturnFirstPlayer()
+        public Player ReturnLastPlayer()
         {
-            return players.First();
+            return players.Last();
         }
 
-        public void AddPlayer(string name, char snakeHeadCharacter, char snakeBodyCharacter)
+        public void AddPlayer(string name, char snakeHeadCharacter, char snakeBodyCharacter, int maxScore)
         {
-            Player player = new Player(name, snakeHeadCharacter, snakeBodyCharacter);
+            Player player = new Player(name, snakeHeadCharacter, snakeBodyCharacter, maxScore);
             players.Add(player);
         }
+
+        public void CheckIfHighScoreBeaten(int score, Player currentPlayer)
+        {
+            if (score > currentPlayer.MaxScore)
+            {
+                currentPlayer.MaxScore = score;
+                Save();
+            }
+        }
+
         public void OutputPlayers()
         {
             if (players != null)
@@ -44,7 +54,7 @@ namespace Snake
                 foreach (Player p in players)
                 {
                     // vytvoření pole hodnot
-                    string[] values = { p.Name, p.SnakeHeadCharacter.ToString(), p.SnakeBodyCharacter.ToString() };
+                    string[] values = { p.Name, p.SnakeHeadCharacter.ToString(), p.SnakeBodyCharacter.ToString(), p.MaxScore.ToString() };
                     // vytvoření řádku
                     string row = String.Join(";", values);
                     // zápis řádku
@@ -53,7 +63,6 @@ namespace Snake
                 // vyprázdnění bufferu
                 sw.Flush();
             }
-            OutputPlayers();
         }
 
         public void Load()
@@ -71,12 +80,12 @@ namespace Snake
                     string name = splittedString[0];
                     char SnakeHeadCharacter = char.Parse(splittedString[1]);
                     char SnakeBodyCharacter = char.Parse(splittedString[2]);
+                    int maxScore = int.Parse(splittedString[3]);
 
                     // přidá uživatele s danými hodnotami
-                    AddPlayer(name, SnakeHeadCharacter, SnakeBodyCharacter);
+                    AddPlayer(name, SnakeHeadCharacter, SnakeBodyCharacter, maxScore);
                 }
             }
-            OutputPlayers();
         }
     }
 }
