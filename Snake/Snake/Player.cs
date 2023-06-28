@@ -20,10 +20,5 @@ namespace Snake
             SnakeBodyCharacter = snakeBodyCharacter;
             MaxScore = maxScore;
         }
-
-        public override string ToString()
-        {
-            return Name;
-        }
     }
 }

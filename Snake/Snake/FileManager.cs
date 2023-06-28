@@ -8,11 +8,11 @@ using System.Xml.Linq;
 
 namespace Snake
 {
-    internal class Manager
+    internal class FileManager
     {
         private string file;
         private ObservableCollection<Player> players;
-        public Manager(string file) 
+        public FileManager(string file) 
         {
             players = new ObservableCollection<Player>();
             this.file = file;
@@ -29,7 +29,7 @@ namespace Snake
             players.Add(player);
         }
 
-        public void CheckIfHighScoreBeaten(int score, Player currentPlayer)
+        public void CheckIfMaxScoreBeaten(int score, Player currentPlayer)
         {
             if (score > currentPlayer.MaxScore)
             {
@@ -38,12 +38,24 @@ namespace Snake
             }
         }
 
-        public void OutputPlayers()
+        public Player ReturnPlayer(int index)
+        {
+            if (index < players.Count && index >= 0)
+            {
+                return players[index];
+            }
+            else return null;
+        }
+
+        public void OutputPlayersWithTheirScore()
         {
             if (players != null)
             {
-                foreach (Player p in players)
-                    Console.WriteLine(p.Name);
+                for (int i = 0; i < players.Count; i++) 
+                {
+                    Console.WriteLine($"{i+1}. {players[i].Name}");
+                    Console.WriteLine($"Jeho/její nejvyšší skóre: {players[i].MaxScore}\n");
+                }   
             }
         }
 

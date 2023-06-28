@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,11 @@ namespace Snake
         private Table table;
         private Snake snake;
         private Apple apple;
-        private Manager manager;
+        private FileManager fileManager;
         private Player currentPlayer;
         private ConsoleKeyInfo c;
         private bool gameStillGoing;
+        private int minPlayerNameLength = 3;
         private bool playMore;
         private bool end;
         private char move;
@@ -28,10 +30,10 @@ namespace Snake
             playMore = true;
             end = false;
             this.table = tabulka;
-            SetupManager();
+            SetupFileManager();
         }
 
-        void SetupManager()
+        void SetupFileManager()
         {
             string path = "";
             try
@@ -44,44 +46,103 @@ namespace Snake
             {
                 Console.WriteLine("Nepodařilo se vytvořit složku " + path + ", zkontrolujte prosím svá oprávnění.");
             }
-            manager = new Manager(System.IO.Path.Combine(path, "players.csv"));
+            fileManager = new FileManager(System.IO.Path.Combine(path, "players.csv"));
         }
 
-        void CreateNewPlayer()
+        void PlayerMenu()
         {
-            manager.AddPlayer("sobotka", 'c', 'x', 0);
-            manager.Save();
-            /*
-            bool correct = false;
-            
-            Console.WriteLine("Jak se bude váš hráč jmenovat? (jméno musí obsahovat alespoň tři znaky");
-            string name = Console.ReadLine();
-            if (name.Length < 3)
-                Console.WriteLine("Jméno je příliš krátké");
-            char snakeBodyCharacter = ' ';
+            Console.Clear();
+            Console.WriteLine("Chcete změnit hráče nebo vytvořit jiného?");
+            Console.WriteLine("Možnost zvolte ve formátu [1/2/3]: ");
+            Console.WriteLine("1) ZMĚNIT HRÁČE");
+            Console.WriteLine("2) VYTVOŘIT HRÁČE");
+            Console.WriteLine("3) ZPĚT\n");
+            bool validOption = false;
+            while (!validOption)
+            {
+                int option;
+                while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out option))
+                    Console.WriteLine("\nNeplatné číslo, zadejte prosím znovu:");
+
+                switch (option)
+                {
+                    case 1:
+                        ChangePlayer();
+                        validOption = true;
+                        break;
+                    case 2:
+                        CreateNewPlayerAndSave();
+                        validOption = true;
+                        break;
+                    case 3:
+                        return;
+                    default:
+                        validOption = false;
+                        Console.WriteLine("\nNeplatná volba, zadejte prosím [1/2/3]");
+                        break;
+                }
+            }
+        }
+
+        void ChangePlayer()
+        {
+            Console.Clear();
+            Console.WriteLine("\nZde je seznam již vytvořených hráčů: \n");
+            fileManager.OutputPlayersWithTheirScore();
+            Player changedPlayer = null;
+            while (changedPlayer == null)
+            {
+                Console.WriteLine("Zadejte prosím index hráče na přepnutí účtu.");
+                int playerIndex;
+                while (!int.TryParse(Console.ReadLine(), out playerIndex))
+                    Console.WriteLine("\nNeplatné číslo, zadejte prosím znovu:");
+                changedPlayer = fileManager.ReturnPlayer(--playerIndex);
+            }
+            currentPlayer = changedPlayer;
+        }
+
+        void CreateNewPlayerAndSave()
+        {
+            Console.Clear();
+            string name = "";
+            Console.Write("\n");
+            while (name.Length < minPlayerNameLength)
+            {
+                Console.WriteLine($"Zadejte jméno hráče alespoň o {minPlayerNameLength} znacích: ");
+                name = Console.ReadLine();
+            }
             char snakeHeadCharacter = ' ';
-            if (snakeBodyCharacter == ' ' || snakeHeadCharacter == ' ')
-                Console.WriteLine("Neplatný znak");
-            */
+            char snakeBodyCharacter = ' ';
+            Console.WriteLine("Zadejte znak, kterým se bude vypisovat hlava vašeho hada (doporučují se velké znaky): ");
+            while (!char.TryParse(Console.ReadLine(), out snakeHeadCharacter) || snakeHeadCharacter == ' ')
+                Console.WriteLine("Neplatný znak, zadejte prosím znovu:");
+            Console.WriteLine("Zadejte znak, kterým se bude vypisovat tělo vašeho hada (doporučují se malé znaky): ");
+            while (!char.TryParse(Console.ReadLine(), out snakeBodyCharacter) || snakeBodyCharacter == ' ')
+                Console.WriteLine("Neplatný znak, zadejte prosím znovu:");
+
+            fileManager.AddPlayer(name, snakeHeadCharacter, snakeBodyCharacter, 0);
+            fileManager.Save();
+            currentPlayer = fileManager.ReturnLastPlayer();
         }
 
         public void StartupMenu()
         {
-            Console.WriteLine("Vítejte ve hře HADISKO!");
+            try // load already existing file with players and load the last one created
+            {
+                fileManager.Load();       
+                fileManager.OutputPlayersWithTheirScore();
+            }
+            catch // no list of players -> create player
+            {
+                CreateNewPlayerAndSave();
+            }
 
-            try
-            {
-                manager.Load();
-                currentPlayer = manager.ReturnLastPlayer();
-                manager.OutputPlayers();
-            }
-            catch
-            {
-                
-            }
+            currentPlayer = fileManager.ReturnLastPlayer();
 
             while (!end)
             {
+                Console.Clear();
+                Console.WriteLine("Vítejte ve hře HADISKO!");
                 Console.WriteLine("Zvolte možnost ve formátu [1/2/3]");
                 Console.WriteLine("1) HRÁT");
                 Console.WriteLine("2) ZMĚNIT/VYTVOŘIT HRÁČE");
@@ -95,14 +156,18 @@ namespace Snake
 
                 while (!validOption)
                 {
-                    switch (int.Parse(Console.ReadKey().KeyChar.ToString()))
+                    int option; //int.Parse(Console.ReadKey().KeyChar.ToString())
+                    while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out option))
+                        Console.WriteLine("\nNeplatné číslo, zadejte prosím znovu:");
+                    
+                    switch (option)
                     {
                         case 1:
                             PlayMenu();
                             validOption = true;
                             break;
                         case 2:
-                            CreateNewPlayer();
+                            PlayerMenu();
                             validOption = true;
                             break;
                         case 3:
@@ -111,7 +176,7 @@ namespace Snake
                             break;
                         default:
                             validOption = false;
-                            Console.WriteLine("Neplatná volba, zadejte prosím [1/2/3]");
+                            Console.WriteLine("\nNeplatná volba, zadejte prosím [1/2/3]");
                             break;
                     }
                 }
@@ -155,7 +220,7 @@ namespace Snake
                     }
                 }
                 playMore = Play();
-                manager.CheckIfHighScoreBeaten(apple.Points, currentPlayer);
+                fileManager.CheckIfMaxScoreBeaten(apple.Points, currentPlayer);
             }
         }
 
@@ -166,7 +231,7 @@ namespace Snake
             Console.CursorVisible = false;
             // new objects              
             apple = new Apple(table, 'O');
-            snake = new Snake(table, apple, keys, 'X', 'x');
+            snake = new Snake(table, apple, keys, currentPlayer.SnakeHeadCharacter, currentPlayer.SnakeBodyCharacter);
             // start of the game 
             gameStillGoing = true;
             snake.SnakeOutput(); // outputs snake's head on standard place
