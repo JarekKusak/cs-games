@@ -10,14 +10,18 @@ namespace Snake
     {
         public string Name { get; set; }
         public char SnakeHeadCharacter { get; set; }
+        public string SnakeHeadColor { get; set; }
         public char SnakeBodyCharacter { get; set; }
+        public string SnakeBodyColor { get; set; }
         public int MaxScore { get; set; }
 
-        public Player(string name, char snakeHeadCharacter, char snakeBodyCharacter, int maxScore) 
+        public Player(string name, char snakeHeadCharacter, string snakeHeadColor, char snakeBodyCharacter, string snakeBodyColor, int maxScore) 
         {
             this.Name = name;
             SnakeHeadCharacter = snakeHeadCharacter;
+            SnakeHeadColor = snakeHeadColor;
             SnakeBodyCharacter = snakeBodyCharacter;
+            SnakeBodyColor = snakeBodyColor;
             MaxScore = maxScore;
         }
     }

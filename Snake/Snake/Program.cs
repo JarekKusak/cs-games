@@ -16,6 +16,7 @@ namespace Snake
     
             game.StartupMenu();
 
+            Console.Clear();
             Console.WriteLine("Hru ukončíte stisknutím jakéhokoliv tlačítka...");
             Console.ReadLine();
         }

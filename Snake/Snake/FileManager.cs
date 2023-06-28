@@ -23,9 +23,9 @@ namespace Snake
             return players.Last();
         }
 
-        public void AddPlayer(string name, char snakeHeadCharacter, char snakeBodyCharacter, int maxScore)
+        public void AddPlayer(string name, char snakeHeadCharacter, string snakeHeadColor, char snakeBodyCharacter, string snakeBodyColor, int maxScore)
         {
-            Player player = new Player(name, snakeHeadCharacter, snakeBodyCharacter, maxScore);
+            Player player = new Player(name, snakeHeadCharacter, snakeHeadColor, snakeBodyCharacter, snakeBodyColor, maxScore);
             players.Add(player);
         }
 
@@ -66,7 +66,8 @@ namespace Snake
                 foreach (Player p in players)
                 {
                     // vytvoření pole hodnot
-                    string[] values = { p.Name, p.SnakeHeadCharacter.ToString(), p.SnakeBodyCharacter.ToString(), p.MaxScore.ToString() };
+                    string[] values = { p.Name, p.SnakeHeadCharacter.ToString(), 
+                        p.SnakeHeadColor, p.SnakeBodyCharacter.ToString(), p.SnakeBodyColor, p.MaxScore.ToString() };
                     // vytvoření řádku
                     string row = String.Join(";", values);
                     // zápis řádku
@@ -91,11 +92,13 @@ namespace Snake
                     string[] splittedString = s.Split(';');
                     string name = splittedString[0];
                     char SnakeHeadCharacter = char.Parse(splittedString[1]);
-                    char SnakeBodyCharacter = char.Parse(splittedString[2]);
-                    int maxScore = int.Parse(splittedString[3]);
+                    string SnakeHeadColor = splittedString[2];
+                    char SnakeBodyCharacter = char.Parse(splittedString[3]);
+                    string SnakeBodyColor = splittedString[4];
+                    int maxScore = int.Parse(splittedString[5]);
 
                     // přidá uživatele s danými hodnotami
-                    AddPlayer(name, SnakeHeadCharacter, SnakeBodyCharacter, maxScore);
+                    AddPlayer(name, SnakeHeadCharacter, SnakeHeadColor, SnakeBodyCharacter, SnakeBodyColor, maxScore);
                 }
             }
         }

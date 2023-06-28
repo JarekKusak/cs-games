@@ -20,7 +20,11 @@ namespace Snake
         private bool collision;
         private char[] keys;
         private bool overTheEdge;
+        private string headColor;
+        private string bodyColor;
         private Direction direction;
+        private ConsoleColor outputHeadColor;
+        private ConsoleColor outputBodyColor;
 
         enum Direction
         {
@@ -30,13 +34,15 @@ namespace Snake
             Right
         }
 
-        public Snake(Table table, Apple apple, char[] keys, char head, char body)
+        public Snake(Table table, Apple apple, char[] keys, char head, char body, string headColor, string bodyColor)
         {
             this.head = head;
             this.body = body;
             this.apple = apple;
             this.table = table;
             this.keys = keys;
+            this.headColor = headColor;
+            this.bodyColor = bodyColor;
             coordinatesX = new int[(table.Length - 2) * (table.Length - 2)];
             coordinatesY = new int[(table.Length - 2) * (table.Length - 2)];
             headX = (table.Length + 1) / 2 - 1;
@@ -46,9 +52,43 @@ namespace Snake
             coordinatesX[1] = headX; // x coor. of "remover"
             coordinatesY[1] = headY + 1; // y coor. of "remover"
             bodyParts = 2; // number of body segments: head + "remover"
-            collision = true;
-
+            collision = false;
+            SetupColorsOfSnake();
             apple.CreateApple(coordinatesX, coordinatesY, bodyParts, headY, headX); // creates first apple
+        }
+
+        void SetupColorsOfSnake()
+        {
+            switch (headColor)
+            {
+                case "red":
+                    outputHeadColor = ConsoleColor.Red;
+                    break;
+                case "blue":
+                    outputHeadColor = ConsoleColor.Blue;
+                    break;
+                case "green":
+                    outputHeadColor = ConsoleColor.Green;
+                    break;
+                case "yellow":
+                    outputHeadColor = ConsoleColor.Yellow;
+                    break;
+            }
+            switch (bodyColor)
+            {
+                case "red":
+                    outputBodyColor = ConsoleColor.Red;
+                    break;
+                case "blue":
+                    outputBodyColor = ConsoleColor.Blue;
+                    break;
+                case "green":
+                    outputBodyColor = ConsoleColor.Green;
+                    break;
+                case "yellow":
+                    outputBodyColor = ConsoleColor.Yellow;
+                    break;
+            }
         }
 
         void MoveSnake()
@@ -173,9 +213,9 @@ namespace Snake
         public void SnakeOutput() // outputs whole snake on new positions
         {
             Console.SetCursorPosition(2 * coordinatesX[0], coordinatesY[0]);
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = outputHeadColor;
             Console.WriteLine(head);
-
+            Console.ForegroundColor = outputBodyColor;
             for (int i = 1; i < bodyParts - 1; i++)
             {
                 Console.SetCursorPosition(2 * coordinatesX[i], coordinatesY[i]);
@@ -195,7 +235,10 @@ namespace Snake
             for (int i = 1; i < bodyParts - 1; i++) // i = 1, because head is not counted to body parts without "remover"
             {
                 if (headX == coordinatesX[i] && headY == coordinatesY[i])
-                    collision = false;
+                {
+                    collision = true;
+                    break;
+                }
             }
             return collision;
         }

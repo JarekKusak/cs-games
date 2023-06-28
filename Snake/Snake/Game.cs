@@ -49,6 +49,34 @@ namespace Snake
             fileManager = new FileManager(System.IO.Path.Combine(path, "players.csv"));
         }
 
+        string ChooseYourColor()
+        {
+            bool validColor = false;
+            Console.WriteLine("Na výběr máte ze čtyř barev: červená, modrá, zelená, žlutá.");
+            Console.WriteLine("Zadejte prosím odpověď ve formátu [red/blue/green/yellow]");
+            while (!validColor)
+            {
+                string color = Console.ReadLine().ToString().ToLower();
+                switch (color)
+                {
+                    case "red":
+                        return color;
+                    case "blue":
+                        return color;
+                    case "green":
+                        return color;
+                    case "yellow":
+                        return color;
+                    default:
+                        validColor = false;
+                        Console.WriteLine("Neplatná volba, zadejte prosím jednu z možných barev [red/blue/green/yellow]");
+                        break;
+                }
+            }
+            return "green";
+        }
+    
+
         void PlayerMenu()
         {
             Console.Clear();
@@ -116,11 +144,14 @@ namespace Snake
             Console.WriteLine("Zadejte znak, kterým se bude vypisovat hlava vašeho hada (doporučují se velké znaky): ");
             while (!char.TryParse(Console.ReadLine(), out snakeHeadCharacter) || snakeHeadCharacter == ' ')
                 Console.WriteLine("Neplatný znak, zadejte prosím znovu:");
+            Console.WriteLine("Zadejte barvu, kterou se bude vypisovat hlava vašeho hada.");
+            string headColor = ChooseYourColor();
             Console.WriteLine("Zadejte znak, kterým se bude vypisovat tělo vašeho hada (doporučují se malé znaky): ");
             while (!char.TryParse(Console.ReadLine(), out snakeBodyCharacter) || snakeBodyCharacter == ' ')
                 Console.WriteLine("Neplatný znak, zadejte prosím znovu:");
-
-            fileManager.AddPlayer(name, snakeHeadCharacter, snakeBodyCharacter, 0);
+            Console.WriteLine("Zadejte barvu, kterou se bude vypisovat tělo vašeho hada.");
+            string bodyColor = ChooseYourColor();
+            fileManager.AddPlayer(name, snakeHeadCharacter, headColor, snakeBodyCharacter, bodyColor, 0);
             fileManager.Save();
             currentPlayer = fileManager.ReturnLastPlayer();
         }
@@ -148,8 +179,8 @@ namespace Snake
                 Console.WriteLine("2) ZMĚNIT/VYTVOŘIT HRÁČE");
                 Console.WriteLine("3) UKONČIT HRU\n");
                 Console.WriteLine("Právě hraje: " + currentPlayer.Name);
-                Console.WriteLine("Jeho/její had: " + currentPlayer.SnakeHeadCharacter + currentPlayer.SnakeBodyCharacter + 
-                    currentPlayer.SnakeBodyCharacter);
+                Console.Write("Jeho/její had: " + currentPlayer.SnakeHeadCharacter);
+                Console.Write(currentPlayer.SnakeBodyCharacter + currentPlayer.SnakeBodyCharacter);
                 Console.WriteLine("Jeho/její nejvyšší skóre: " + currentPlayer.MaxScore.ToString());
 
                 bool validOption = false;
@@ -231,7 +262,8 @@ namespace Snake
             Console.CursorVisible = false;
             // new objects              
             apple = new Apple(table, 'O');
-            snake = new Snake(table, apple, keys, currentPlayer.SnakeHeadCharacter, currentPlayer.SnakeBodyCharacter);
+            snake = new Snake(table, apple, keys, currentPlayer.SnakeHeadCharacter, currentPlayer.SnakeBodyCharacter, 
+                currentPlayer.SnakeHeadColor, currentPlayer.SnakeBodyColor);
             // start of the game 
             gameStillGoing = true;
             snake.SnakeOutput(); // outputs snake's head on standard place
@@ -355,7 +387,7 @@ namespace Snake
         /// <returns> False if collision happened </returns>
         public bool End() 
         {
-            gameStillGoing = snake.CheckCollision(); ;
+            gameStillGoing = !snake.CheckCollision(); // assigns negation, collision == true -> game still going == false
             return gameStillGoing;
         }
     }
