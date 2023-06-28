@@ -85,7 +85,6 @@ namespace Snake
                     needToGenerateNewCoordinates = false;
             }
             OutputApple(x,y);
-            
         }
 
         void OutputApple(int x, int y)

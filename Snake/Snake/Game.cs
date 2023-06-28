@@ -16,24 +16,22 @@ namespace Snake
         private FileManager fileManager;
         private Player currentPlayer;
         private ConsoleKeyInfo c;
+        private ConsoleColor outputHeadColor;
+        private ConsoleColor outputBodyColor;
         private bool gameStillGoing;
         private int minPlayerNameLength = 3;
         private bool playMore;
         private bool end;
         private char move;
         private int delay;
-        private string headColor;
-        private string bodyColor;
-        private ConsoleColor outputHeadColor;
-        private ConsoleColor outputBodyColor;
         private char[] keys = { 'w', 's', 'a', 'd' };
+        //private string[] colors = { "red", "blue", "green", "yellow" }; // cannot be used in switch case statements :-/
 
-        public Game(Table tabulka)
+        public Game()
         {
             c = new ConsoleKeyInfo();
             playMore = true;
             end = false;
-            this.table = tabulka;
             SetupFileManager();
         }
 
@@ -230,7 +228,7 @@ namespace Snake
 
                 while (!validOption)
                 {
-                    int option; //int.Parse(Console.ReadKey().KeyChar.ToString())
+                    int option;
                     while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out option))
                         Console.WriteLine("\nNeplatné číslo, zadejte prosím znovu:");
                     
@@ -263,6 +261,7 @@ namespace Snake
             while (playMore)
             {
                 Console.Clear();
+                bool obstacles = false;
                 bool validDifficulty = false;
                 Console.WriteLine("Ovládat hada můžete pomocí tlačítek [W/S/A/D].");
                 Console.WriteLine("Zadejte obtížnost ve formátu [easy/normal/hard/extreme]: ");
@@ -293,17 +292,39 @@ namespace Snake
                             break;
                     }
                 }
-                playMore = Play();
+                bool validOption = false;
+                Console.WriteLine("Přejete si přidat překážky ke zvýšení obtížnosti?");
+                Console.WriteLine("Odpovězte ve formátu [ano/ne]: ");
+                while (!validOption)
+                {
+                    switch (Console.ReadLine().ToString().ToLower())
+                    {
+                        case "ano":
+                            obstacles = true;
+                            validOption = true;
+                            break;
+                        case "ne":
+                            obstacles = false;
+                            validOption = true;
+                            break;
+                        default:
+                            Console.WriteLine("Neplatná volba, zadejte prosím [ano/ne]");
+                            break;
+                    }
+                }
+                playMore = Play(obstacles);
                 fileManager.CheckIfMaxScoreBeaten(apple.Points, currentPlayer);
             }
         }
 
-        void SetupNewGame()
+        void SetupNewGame(bool obstacles)
         {
             Console.Clear();
-            table.TableOutput();
+            
             Console.CursorVisible = false;
             // new objects              
+            table = new Table(25, obstacles);
+            table.TableOutput();
             apple = new Apple(table, 'O');
             snake = new Snake(table, apple, keys, currentPlayer.SnakeHeadCharacter, currentPlayer.SnakeBodyCharacter, 
                 outputHeadColor, outputBodyColor);
@@ -318,9 +339,9 @@ namespace Snake
         /// Main method for initializing objects and launching game
         /// </summary>
         /// <returns> Returns true if player wants to play more </returns>
-        public bool Play()
+        public bool Play(bool obstacles)
         {
-            SetupNewGame();
+            SetupNewGame(obstacles);
             // main loop
             while (gameStillGoing)    
                 Move();     

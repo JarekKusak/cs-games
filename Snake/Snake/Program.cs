@@ -10,9 +10,7 @@ namespace Snake
     {
         static void Main(string[] args)
         {
-            // initalization of table
-            Table table = new Table(25, ' ');
-            Game game = new Game(table);
+            Game game = new Game();
     
             game.StartupMenu();
 
