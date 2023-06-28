@@ -20,8 +20,6 @@ namespace Snake
         private bool collision;
         private char[] keys;
         private bool overTheEdge;
-        private string headColor;
-        private string bodyColor;
         private Direction direction;
         private ConsoleColor outputHeadColor;
         private ConsoleColor outputBodyColor;
@@ -34,15 +32,15 @@ namespace Snake
             Right
         }
 
-        public Snake(Table table, Apple apple, char[] keys, char head, char body, string headColor, string bodyColor)
+        public Snake(Table table, Apple apple, char[] keys, char head, char body, ConsoleColor headColor, ConsoleColor bodyColor)
         {
             this.head = head;
             this.body = body;
             this.apple = apple;
             this.table = table;
             this.keys = keys;
-            this.headColor = headColor;
-            this.bodyColor = bodyColor;
+            this.outputHeadColor = headColor;
+            this.outputBodyColor = bodyColor;
             coordinatesX = new int[(table.Length - 2) * (table.Length - 2)];
             coordinatesY = new int[(table.Length - 2) * (table.Length - 2)];
             headX = (table.Length + 1) / 2 - 1;
@@ -53,42 +51,7 @@ namespace Snake
             coordinatesY[1] = headY + 1; // y coor. of "remover"
             bodyParts = 2; // number of body segments: head + "remover"
             collision = false;
-            SetupColorsOfSnake();
             apple.CreateApple(coordinatesX, coordinatesY, bodyParts, headY, headX); // creates first apple
-        }
-
-        void SetupColorsOfSnake()
-        {
-            switch (headColor)
-            {
-                case "red":
-                    outputHeadColor = ConsoleColor.Red;
-                    break;
-                case "blue":
-                    outputHeadColor = ConsoleColor.Blue;
-                    break;
-                case "green":
-                    outputHeadColor = ConsoleColor.Green;
-                    break;
-                case "yellow":
-                    outputHeadColor = ConsoleColor.Yellow;
-                    break;
-            }
-            switch (bodyColor)
-            {
-                case "red":
-                    outputBodyColor = ConsoleColor.Red;
-                    break;
-                case "blue":
-                    outputBodyColor = ConsoleColor.Blue;
-                    break;
-                case "green":
-                    outputBodyColor = ConsoleColor.Green;
-                    break;
-                case "yellow":
-                    outputBodyColor = ConsoleColor.Yellow;
-                    break;
-            }
         }
 
         void MoveSnake()

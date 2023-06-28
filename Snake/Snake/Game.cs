@@ -22,6 +22,10 @@ namespace Snake
         private bool end;
         private char move;
         private int delay;
+        private string headColor;
+        private string bodyColor;
+        private ConsoleColor outputHeadColor;
+        private ConsoleColor outputBodyColor;
         private char[] keys = { 'w', 's', 'a', 'd' };
 
         public Game(Table tabulka)
@@ -47,6 +51,40 @@ namespace Snake
                 Console.WriteLine("Nepodařilo se vytvořit složku " + path + ", zkontrolujte prosím svá oprávnění.");
             }
             fileManager = new FileManager(System.IO.Path.Combine(path, "players.csv"));
+        }
+
+        void SetupColorsOfSnake(string headColor, string bodyColor)
+        {
+            switch (headColor)
+            {
+                case "red":
+                    outputHeadColor = ConsoleColor.Red;
+                    break;
+                case "blue":
+                    outputHeadColor = ConsoleColor.Blue;
+                    break;
+                case "green":
+                    outputHeadColor = ConsoleColor.Green;
+                    break;
+                case "yellow":
+                    outputHeadColor = ConsoleColor.Yellow;
+                    break;
+            }
+            switch (bodyColor)
+            {
+                case "red":
+                    outputBodyColor = ConsoleColor.Red;
+                    break;
+                case "blue":
+                    outputBodyColor = ConsoleColor.Blue;
+                    break;
+                case "green":
+                    outputBodyColor = ConsoleColor.Green;
+                    break;
+                case "yellow":
+                    outputBodyColor = ConsoleColor.Yellow;
+                    break;
+            }
         }
 
         string ChooseYourColor()
@@ -179,8 +217,13 @@ namespace Snake
                 Console.WriteLine("2) ZMĚNIT/VYTVOŘIT HRÁČE");
                 Console.WriteLine("3) UKONČIT HRU\n");
                 Console.WriteLine("Právě hraje: " + currentPlayer.Name);
-                Console.Write("Jeho/její had: " + currentPlayer.SnakeHeadCharacter);
-                Console.Write(currentPlayer.SnakeBodyCharacter + currentPlayer.SnakeBodyCharacter);
+                SetupColorsOfSnake(currentPlayer.SnakeHeadColor, currentPlayer.SnakeBodyColor);
+                Console.Write("Jeho/její had: ");
+                Console.ForegroundColor = outputHeadColor;
+                Console.Write(currentPlayer.SnakeHeadCharacter);
+                Console.ForegroundColor = outputBodyColor;
+                Console.Write($"{currentPlayer.SnakeBodyCharacter}{currentPlayer.SnakeBodyCharacter}\n");
+                Console.ResetColor();
                 Console.WriteLine("Jeho/její nejvyšší skóre: " + currentPlayer.MaxScore.ToString());
 
                 bool validOption = false;
@@ -263,7 +306,7 @@ namespace Snake
             // new objects              
             apple = new Apple(table, 'O');
             snake = new Snake(table, apple, keys, currentPlayer.SnakeHeadCharacter, currentPlayer.SnakeBodyCharacter, 
-                currentPlayer.SnakeHeadColor, currentPlayer.SnakeBodyColor);
+                outputHeadColor, outputBodyColor);
             // start of the game 
             gameStillGoing = true;
             snake.SnakeOutput(); // outputs snake's head on standard place
