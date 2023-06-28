@@ -47,11 +47,22 @@ namespace Snake
 
         public void SetObstacles()
         {
-            // obstacles
+            // upper-left corner
             matrix[obstacleCoor, obstacleCoor] = obstacleChar;
+            matrix[obstacleCoor + 1, obstacleCoor] = obstacleChar;
+            matrix[obstacleCoor, obstacleCoor + 1] = obstacleChar;
+            // upper-right corner
             matrix[Length - obstacleCoor - 1, obstacleCoor] = obstacleChar;
+            matrix[Length - obstacleCoor - 2, obstacleCoor] = obstacleChar;
+            matrix[Length - obstacleCoor - 1, obstacleCoor + 1] = obstacleChar;
+            // down-left corner
             matrix[obstacleCoor, Length - obstacleCoor - 1] = obstacleChar;
+            matrix[obstacleCoor + 1, Length - obstacleCoor - 1] = obstacleChar;
+            matrix[obstacleCoor, Length - obstacleCoor - 2] = obstacleChar;
+            // down-right corner
             matrix[Length - obstacleCoor - 1, Length - obstacleCoor - 1] = obstacleChar;
+            matrix[Length - obstacleCoor - 2, Length - obstacleCoor - 1] = obstacleChar;
+            matrix[Length - obstacleCoor - 1, Length - obstacleCoor - 2] = obstacleChar;
         }
 
         /// <summary>
