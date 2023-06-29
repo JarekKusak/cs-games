@@ -8,18 +8,19 @@ namespace Snake
 {
     internal class Table
     {
-        public int Length { get; set; } // délka strany čtvercové tabulky 
-        public char Character { get; set; }
+        public int Length { get; private set; } // délka strany čtvercové tabulky 
+        public char Character { get; private set; }
+        public bool Obstacles { get; private set; }
+        public Tuple<int, int>[] ObstaclesCoordinates = new Tuple<int, int>[12];
         public int CenterOfTable => centerOfTable;
         private char[,] matrix;
         private int centerOfTable;
-        private bool wantObstacles;
         private int obstacleCoor = 4;
         private char obstacleChar = '#';
 
         public Table(int length, bool obstacles)
         {
-            wantObstacles = obstacles; 
+            Obstacles = obstacles; 
             Character = ' ';
             Length = length;
             matrix = new char[length, length];
@@ -40,29 +41,36 @@ namespace Snake
             matrix[length - 1, 0] = '+';
             matrix[0, length - 1] = '+';
             matrix[length - 1, length - 1] = '+';
+            CreateObstacles();
             
-            if (obstacles)
+            if (Obstacles)
                 SetObstacles();
         }
 
-        public void SetObstacles()
+        void CreateObstacles()
         {
             // upper-left corner
-            matrix[obstacleCoor, obstacleCoor] = obstacleChar;
-            matrix[obstacleCoor + 1, obstacleCoor] = obstacleChar;
-            matrix[obstacleCoor, obstacleCoor + 1] = obstacleChar;
+            ObstaclesCoordinates[0] = Tuple.Create(obstacleCoor, obstacleCoor);
+            ObstaclesCoordinates[1] = Tuple.Create(obstacleCoor + 1, obstacleCoor);
+            ObstaclesCoordinates[2] = Tuple.Create(obstacleCoor, obstacleCoor + 1);
             // upper-right corner
-            matrix[Length - obstacleCoor - 1, obstacleCoor] = obstacleChar;
-            matrix[Length - obstacleCoor - 2, obstacleCoor] = obstacleChar;
-            matrix[Length - obstacleCoor - 1, obstacleCoor + 1] = obstacleChar;
+            ObstaclesCoordinates[3] = Tuple.Create(Length - obstacleCoor - 1, obstacleCoor);
+            ObstaclesCoordinates[4] = Tuple.Create(Length - obstacleCoor - 2, obstacleCoor);
+            ObstaclesCoordinates[5] = Tuple.Create(Length - obstacleCoor - 1, obstacleCoor + 1);
             // down-left corner
-            matrix[obstacleCoor, Length - obstacleCoor - 1] = obstacleChar;
-            matrix[obstacleCoor + 1, Length - obstacleCoor - 1] = obstacleChar;
-            matrix[obstacleCoor, Length - obstacleCoor - 2] = obstacleChar;
+            ObstaclesCoordinates[6] = Tuple.Create(obstacleCoor, Length - obstacleCoor - 1);
+            ObstaclesCoordinates[7] = Tuple.Create(obstacleCoor + 1, Length - obstacleCoor - 1);
+            ObstaclesCoordinates[8] = Tuple.Create(obstacleCoor, Length - obstacleCoor - 2);
             // down-right corner
-            matrix[Length - obstacleCoor - 1, Length - obstacleCoor - 1] = obstacleChar;
-            matrix[Length - obstacleCoor - 2, Length - obstacleCoor - 1] = obstacleChar;
-            matrix[Length - obstacleCoor - 1, Length - obstacleCoor - 2] = obstacleChar;
+            ObstaclesCoordinates[9] = Tuple.Create(Length - obstacleCoor - 1, Length - obstacleCoor - 1);
+            ObstaclesCoordinates[10] = Tuple.Create(Length - obstacleCoor - 2, Length - obstacleCoor - 1);
+            ObstaclesCoordinates[11] = Tuple.Create(Length - obstacleCoor - 1, Length - obstacleCoor - 2);
+        }
+
+        void SetObstacles()
+        {
+            foreach (var obstacle in ObstaclesCoordinates)
+                matrix[obstacle.Item1, obstacle.Item2] = obstacleChar;
         }
 
         /// <summary>

@@ -22,6 +22,7 @@ namespace Snake
         private int minPlayerNameLength = 3;
         private bool playMore;
         private bool end;
+        private bool obstacles;
         private char move;
         private int delay;
         private char[] keys = { 'w', 's', 'a', 'd' };
@@ -261,7 +262,7 @@ namespace Snake
             while (playMore)
             {
                 Console.Clear();
-                bool obstacles = false;
+                obstacles = false;
                 bool validDifficulty = false;
                 Console.WriteLine("Ovládat hada můžete pomocí tlačítek [W/S/A/D].");
                 Console.WriteLine("Zadejte obtížnost ve formátu [easy/normal/hard/extreme]: ");
@@ -451,7 +452,9 @@ namespace Snake
         /// <returns> False if collision happened </returns>
         public bool End() 
         {
-            gameStillGoing = !snake.CheckCollision(); // assigns negation, collision == true -> game still going == false
+            gameStillGoing = !snake.CheckSelfCollision(); // assigns negation, collision == true -> game still going == false
+            if (obstacles) // if obstacles are set
+                gameStillGoing = !snake.CheckObstacleCollision();
             return gameStillGoing;
         }
     }

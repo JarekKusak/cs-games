@@ -193,11 +193,27 @@ namespace Snake
         /// Checks if snake collided with his body
         /// </summary>
         /// <returns> did/did not </returns>
-        public bool CheckCollision() // checks if collision happened
+        public bool CheckSelfCollision() // checks if collision happened
         {
             for (int i = 1; i < bodyParts - 1; i++) // i = 1, because head is not counted to body parts without "remover"
             {
                 if (headX == coordinatesX[i] && headY == coordinatesY[i])
+                {
+                    collision = true;
+                    break;
+                }
+            }
+            return collision;
+        }
+        /// <summary>
+        /// Checks if snake collided with obstacle
+        /// </summary>
+        /// <returns> did/did not </returns>
+        public bool CheckObstacleCollision()
+        {
+            foreach (var i in table.ObstaclesCoordinates)
+            {
+                if (headX == i.Item1 && headY == i.Item2)
                 {
                     collision = true;
                     break;
