@@ -23,12 +23,18 @@ namespace Snake
             return players.Last();
         }
 
+        /// <summary>
+        /// Creates new object Player and adds him to the list of players
+        /// </summary>
         public void AddPlayer(string name, char snakeHeadCharacter, string snakeHeadColor, char snakeBodyCharacter, string snakeBodyColor, int maxScore)
         {
             Player player = new Player(name, snakeHeadCharacter, snakeHeadColor, snakeBodyCharacter, snakeBodyColor, maxScore);
             players.Add(player);
         }
 
+        /// <summary>
+        /// If new achieved score is higher than player's high score, set achieved score as new high score
+        /// </summary>
         public void CheckIfMaxScoreBeaten(int score, Player currentPlayer)
         {
             if (score > currentPlayer.MaxScore)
@@ -38,6 +44,9 @@ namespace Snake
             }
         }
 
+        /// <summary>
+        /// Returns player by index from list of players
+        /// </summary>
         public Player ReturnPlayer(int index)
         {
             if (index < players.Count && index >= 0)
@@ -47,6 +56,9 @@ namespace Snake
             else return null;
         }
 
+        /// <summary>
+        /// Outputs players with indices and their high score
+        /// </summary>
         public void OutputPlayersWithTheirScore()
         {
             if (players != null)
@@ -59,6 +71,9 @@ namespace Snake
             }
         }
 
+        /// <summary>
+        /// Saves every player and their status
+        /// </summary>
         public void Save()
         {
             using (StreamWriter sw = new StreamWriter(file))
@@ -78,6 +93,9 @@ namespace Snake
             }
         }
 
+        /// <summary>
+        /// Loads players from file into list
+        /// </summary>
         public void Load()
         {
             players.Clear();

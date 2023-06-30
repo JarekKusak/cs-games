@@ -36,6 +36,9 @@ namespace Snake
             SetupFileManager();
         }
 
+        /// <summary>
+        /// If file (path to file) does not exist, creates new (else uses original)
+        /// </summary>
         void SetupFileManager()
         {
             string path = "";
@@ -52,6 +55,9 @@ namespace Snake
             fileManager = new FileManager(System.IO.Path.Combine(path, "players.csv"));
         }
 
+        /// <summary>
+        /// Sets color of snake's head and tail (and sets it's output color in console)
+        /// </summary>
         void SetupColorsOfSnake(string headColor, string bodyColor)
         {
             switch (headColor)
@@ -86,6 +92,9 @@ namespace Snake
             }
         }
 
+        /// <summary>
+        /// Options for colors
+        /// </summary>
         string ChooseYourColor()
         {
             bool validColor = false;
@@ -113,7 +122,9 @@ namespace Snake
             return "green";
         }
     
-
+        /// <summary>
+        /// Menu after clicking second option in Startup menu, allows changing account or creates new
+        /// </summary>
         void PlayerMenu()
         {
             Console.Clear();
@@ -149,6 +160,9 @@ namespace Snake
             }
         }
 
+        /// <summary>
+        /// Allows account switching
+        /// </summary>
         void ChangePlayer()
         {
             Console.Clear();
@@ -166,6 +180,9 @@ namespace Snake
             currentPlayer = changedPlayer;
         }
 
+        /// <summary>
+        /// Creates new player (sets name, skin of snake) and saves into the file
+        /// </summary>
         void CreateNewPlayerAndSave()
         {
             Console.Clear();
@@ -193,6 +210,9 @@ namespace Snake
             currentPlayer = fileManager.ReturnLastPlayer();
         }
 
+        /// <summary>
+        /// Main launching method
+        /// </summary>
         public void StartupMenu()
         {
             try // load already existing file with players and load the last one created
@@ -256,6 +276,9 @@ namespace Snake
             }
         }
 
+        /// <summary>
+        /// Menu after clicking first option in Startup menu, sets difficulty and obstacles
+        /// </summary>
         void PlayMenu()
         {
             playMore = true;
@@ -318,10 +341,13 @@ namespace Snake
             }
         }
 
+        /// <summary>
+        /// Method that setups whole new game (creates new objects)
+        /// </summary>
+        /// <param name="obstacles"> If obstacles are wanted </param>
         void SetupNewGame(bool obstacles)
         {
             Console.Clear();
-            
             Console.CursorVisible = false;
             // new objects              
             table = new Table(25, obstacles);
@@ -352,19 +378,23 @@ namespace Snake
             return playMore;
         }
 
+        /// <summary>
+        /// Method is being called forever until keyboard interrupt appears (only for not forbiden keys)
+        /// </summary>
+        /// <param name="key"> Keyboard key that was pressed </param>
         void RepeatMovementUntilInterrupt(char key)
         {
-            ConsoleKey forbidenKey1;
-            ConsoleKey forbidenKey2;
-            if (key == keys[0] || key == keys[1])
+            ConsoleKey allowedKey1;
+            ConsoleKey allowedKey2;
+            if (key == keys[0] || key == keys[1]) // if going up or down, only allowed movement is left or right
             {
-                forbidenKey1 = ConsoleKey.A;
-                forbidenKey2 = ConsoleKey.D;
+                allowedKey1 = ConsoleKey.A;
+                allowedKey2 = ConsoleKey.D;
             }
-            else
+            else // if going left or right, only allowed movement is up or down
             {
-                forbidenKey1 = ConsoleKey.W;
-                forbidenKey2 = ConsoleKey.S;
+                allowedKey1 = ConsoleKey.W;
+                allowedKey2 = ConsoleKey.S;
             }
 
             do
@@ -380,7 +410,7 @@ namespace Snake
                     c = Console.ReadKey(true);
                 else break;
             }
-            while (c.Key != forbidenKey1 && c.Key != forbidenKey2);
+            while (c.Key != allowedKey1 && c.Key != allowedKey2);
             move = c.KeyChar; // saves last entered input of player
         }
 

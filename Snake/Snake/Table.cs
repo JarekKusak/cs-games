@@ -44,9 +44,12 @@ namespace Snake
             CreateObstacles();
             
             if (Obstacles)
-                SetObstacles();
+                OutputObstacles();
         }
 
+        /// <summary>
+        /// Creates tuple of obstacle coordinates
+        /// </summary>
         void CreateObstacles()
         {
             // upper-left corner
@@ -67,7 +70,10 @@ namespace Snake
             ObstaclesCoordinates[11] = Tuple.Create(Length - obstacleCoor - 1, Length - obstacleCoor - 2);
         }
 
-        void SetObstacles()
+        /// <summary>
+        /// Outputs obstacles into screen (gives them their obstacle character)
+        /// </summary>
+        void OutputObstacles()
         {
             foreach (var obstacle in ObstaclesCoordinates)
                 matrix[obstacle.Item1, obstacle.Item2] = obstacleChar;

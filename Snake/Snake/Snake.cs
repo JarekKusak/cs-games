@@ -72,6 +72,9 @@ namespace Snake
             }
         }
 
+        /// <summary>
+        /// If edge crossed, change coordinates of snakes body
+        /// </summary>
         void ChangeCoordinateAfterCrossingTheEdge(Direction direction)
         {
             if (direction == Direction.Up)
@@ -84,6 +87,10 @@ namespace Snake
                 coordinatesX[0] = 1;
         }
 
+        /// <summary>
+        /// Shifts snake into given direction
+        /// </summary>
+        /// <param name="direction"></param>
         void ChangeCoordinatesAfterNormalMovement(Direction direction)
         {
             if (direction == Direction.Up)
@@ -96,6 +103,9 @@ namespace Snake
                 coordinatesX[0] = coordinatesX[0] + 1;
         }
 
+        /// <summary>
+        /// Checks type of movement of snake (also checks if apple hasn't been eaten)
+        /// </summary>
         void Movement(Direction direction, bool crossedEdge)
         {
             if (apple.CheckStateOfApple(headY, headX) == false) // false -> snakes moves normally 
@@ -119,6 +129,10 @@ namespace Snake
             }
         }
 
+        /// <summary>
+        /// Main method for snake's movement
+        /// </summary>
+        /// <param name="move"> Direction (pressed key on the keyboard) </param>
         public void GoSnake(char move)
         {
             overTheEdge = false;
@@ -211,9 +225,9 @@ namespace Snake
         /// <returns> did/did not </returns>
         public bool CheckObstacleCollision()
         {
-            foreach (var i in table.ObstaclesCoordinates)
+            foreach (var obstacle in table.ObstaclesCoordinates)
             {
-                if (headX == i.Item1 && headY == i.Item2)
+                if (headX == obstacle.Item1 && headY == obstacle.Item2)
                 {
                     collision = true;
                     break;
