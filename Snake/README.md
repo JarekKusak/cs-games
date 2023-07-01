@@ -1,1 +1,1 @@
-dokumentace
+# ZÁPOČTOVÝ PROGRAM - SNAKE
