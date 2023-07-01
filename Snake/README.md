@@ -8,4 +8,8 @@ Při prvním spuštění hry si hráč zakládá účet, ke kterému se ukládá
 ## Spuštění hry
 Jak již bylo řečeno, při úplně prvním spuštění si hráč založí účet, vybere jméno a podobu hada. Poté se zobrazí startovací menu. Na výběr je hrát s aktuálním účtem, nebo účet změnit či vytvořit nový. Po výběru první volby (tedy Hrát) se zobrazí hrací menu, kde si hráč navoluje obtížnost (rychlost hada), kde si může vybrat až ze čtyř obtížností, a navolení překážek (pouze ano, nebo ne). Poté se pouze vykreslí hrací plocha s hadem a jablkem, a čeká se na hráčův vstup. Jakmile ho zadá, začne se hrát, dokud had nenarazí sám do sebe nebo do překážek. Po konci hry se program hráče zeptá, zda chce zkusit další kolo. Pokud ano, opět naskočí hrací menu, pokud ne, vrátí se rovnou do startovacího menu. Při navolení druhé volby ve startovacím menu (tedy Změnit či vytvořit účet) se zobrazí "player menu", kde má hráč na výběr mězi vytvořením účtu či přepnutí na nějaký z již vytvořených účtů.
 ## O programu (programátorský pohled)
-Program byl napsán v jazyce C# v knihovnách .NET Framework, čili je spustitelný pouze na operačních systémech Windows.
+Program byl napsán v jazyce C# v knihovnách .NET Framework, čili je spustitelný pouze na operačních systémech Windows. Jedná se ryze o konzolovou aplikaci.
+## Programová dekompozice
+Program je rozdělený na 6 tříd (+ třída Program.cs, zahajovací třída):
+### Game.cs
+Hlavní řídící třída, ve které probíhá veškerá logika a řízení hry. 
