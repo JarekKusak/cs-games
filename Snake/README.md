@@ -12,4 +12,18 @@ Program byl napsán v jazyce C# v knihovnách .NET Framework, čili je spustitel
 ## Programová dekompozice
 Program je rozdělený na 6 tříd (+ třída Program.cs, zahajovací třída):
 ### Game.cs
-Hlavní řídící třída, ve které probíhá veškerá logika a řízení hry. 
+Hlavní řídící třída, ve které probíhá veškerá logika a řízení hry. Stará se o výpis jednotlivých "menu", zakládání účtu hráče, změnu hráče, ale také o zahájení hry (čili zakládání nových objektů) a o její průběh.
+### Filemanager.cs
+Třída starající se o ukládání informací o hráčích (účtů) do souboru (který se standardně ukládá v adresáři %appdata%) a následné načítání dat z něj. Také uchovává list hráčů typu Player.cs
+### Player.cs
+Tato třída slouží k uchovávání informací o hráči, jako jsou jeho jméno, vzhled hlavy a těla hada, barvy a maximální dosažené skóre. Tyto informace mohou být dále využity v různých částech programu, který implementuje hru hada.
+### Snake.cs
+Tato třída reprezentuje hada. Třída obsahuje logiku pro pohyb hada, správu jeho těla, kontrolu kolizí s překážkami a sebou samým, a také výstup na obrazovku.
+### Apple.cs
+Tato třída reprezentuje jablko. Třída obsahuje logiku pro generování a správu jablka, kontrolu, zda bylo jablko snědeno, a výstup na obrazovku.
+### Table.cs
+Tato třída reprezentuje herní pole (tabulku). Třída obsahuje logiku pro vytvoření tabulky, včetně okrajů, případných překážek a výstupu na obrazovku.
+## Nedostatky v programu (co je třeba dodělat či předělat)
+Na vypisování jsem se rozhodl používat Console.SetCursorPosition, tedy neustálé nastavování souřadnic kurzoru uvnitř konzole. Tenhle způsob sice zajistil plynulejší vypisování (místo neustálého problikávání), ale za cenu přehlednosti. Co jsem také vyřešil špatně je nejednotné místo vypisování, každá třída si vypisování konkrétní položky řeší sama, což je velice nepřehledné, bylo by nejspíš vhodnější udělat jedno místo pro výpis všeho. Do programu by toho šlo přidat více, třeba více map (herních polí), mít možnost zabránit přecházení hada přes hranice pro zvýšení obtížnosti (tedy při srážce hada se zdí by nastal konec hry). Taky by bylo dobré mít možnost kompletně odstranit účet nebo si navolit vlastní klávesy pro ovládání.
+## Závěr
+Celková hra je principem jednoduchá, je to ale skvělý nástroj na zabíjení času při zdlouhavé a nudné jízdě městskou hromadnou dopravou, a také nabízí spoustu kreativních nápadů jak hru ozvláštnit a udělat ji ještě zábavnější.
